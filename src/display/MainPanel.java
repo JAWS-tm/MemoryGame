@@ -45,12 +45,9 @@ public class MainPanel extends AppView {
         quitGameBtn.addActionListener(controller);
         buttonList.add(quitGameBtn);
 
-        JPanel wrap = new JPanel();
-        wrap.add(buttonList);
-
 
         this.add(gameName);
-        this.add(wrap);
+        this.add(wrap(buttonList));
     }
 
     // Getters

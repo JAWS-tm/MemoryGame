@@ -65,10 +65,4 @@ public class GamePanel extends AppView {
         this.add(yCenter, BorderLayout.CENTER);
     }
 
-    private JPanel wrap(JComponent element) {
-        JPanel wrapper = new JPanel();
-        wrapper.add(element);
-        return wrapper;
-    }
-
 }
