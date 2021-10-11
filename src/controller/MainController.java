@@ -1,5 +1,6 @@
 package controller;
 
+import display.GameConfigPanel;
 import display.GamePanel;
 import display.MainPanel;
 
@@ -18,7 +19,7 @@ public class MainController implements ActionListener {
         Object source = e.getSource();
 
         if (source == view.getLaunchGameBtn())
-            App.getInstance().changeView(new GamePanel());
+            App.getInstance().changeView(new GameConfigPanel());
         else if (source == view.getShowHighscoresBtn())
             System.out.println("highscores");
         else if (source == view.getQuitGameBtn())
