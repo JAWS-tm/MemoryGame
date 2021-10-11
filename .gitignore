@@ -1,5 +1,7 @@
 # Project exclude paths
 /out/
+MemoryGame.iml
+.idea
 /bin/
 
 .DS_Store
