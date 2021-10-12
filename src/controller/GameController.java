@@ -2,6 +2,7 @@ package controller;
 
 import display.GamePanel;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -61,7 +62,6 @@ public class GameController implements ActionListener {
             File iconsDir = new File(path.toString());
 
             File[] iconsList = iconsDir.listFiles((dir, name) -> name.matches("icon_[0-9]+.png"));
-
             if (iconsList == null)
                 throw new NullPointerException("Empty directory");
 
@@ -71,8 +71,8 @@ public class GameController implements ActionListener {
                 iconsPathList.add(file.toString());
             }
 
-        }catch (NullPointerException e){
-            e.printStackTrace();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(view, "<html>Une erreur a eu lieu lors du chargement des icons, veuillez réessayer.<br/><b>Message : </b>" + e.getMessage() + "</html>", "Erreur de chargement", JOptionPane.ERROR_MESSAGE);
         }
     }
 
