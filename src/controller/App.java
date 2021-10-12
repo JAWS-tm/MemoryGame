@@ -7,17 +7,17 @@ import javax.swing.*;
 
 public class App {
     private static App instance;
-    private JFrame appView;
+    private JFrame appFrame;
 
     private App() {
-        appView = new JFrame();
-        appView.setTitle("Jeu de memory");
-        appView.setLocationRelativeTo(null);
-        appView.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        appView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        appFrame = new JFrame();
+        appFrame.setTitle("Jeu de memory");
+        appFrame.setLocationRelativeTo(null);
+        appFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        appView.setContentPane(new MainPanel());
-        appView.setVisible(true);
+        appFrame.setContentPane(new MainPanel());
+        appFrame.setVisible(true);
     }
 
     public static App getInstance() {
@@ -28,8 +28,11 @@ public class App {
     }
 
     public void changeView(AppView newView) {
-        appView.setContentPane(newView);
-        appView.validate();
+        appFrame.setContentPane(newView);
+        appFrame.validate();
     }
 
+    public JFrame getAppFrame() {
+        return appFrame;
+    }
 }
