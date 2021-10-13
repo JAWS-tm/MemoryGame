@@ -97,19 +97,7 @@ public class GameConfigController implements ActionListener{
 				JOptionPane.showMessageDialog(view, "Selectionnez le niveau !", "Erreur: NIVEAU", JOptionPane.PLAIN_MESSAGE);
 			else {
 				System.out.println("test");
-				JFrame confirmation = new JFrame("recap");
-				confirmation.setVisible(true);
-				confirmation.setLocationRelativeTo(null);
-				confirmation.setSize(300,250);
-				
-				JPanel contentConfirm = new JPanel();
-				contentConfirm.setLayout(new GridLayout(2,1));
-				confirmation.setContentPane(contentConfirm);
-				
-				JLabel mode = new JLabel("mode séléctionné :" + modeSelected.getText());
-				JLabel level = new JLabel("niveau séléctionné :" + levelSelected.getText());
-				contentConfirm.add(mode);
-				contentConfirm.add(level);
+
 				
 				App.getInstance().changeView(new GamePanel());
 			}
