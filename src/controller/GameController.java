@@ -1,22 +1,21 @@
 package controller;
 
-import additional.AppController;
 import display.GamePanel;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameController implements ActionListener {
     private GamePanel view;
 
-    private final String iconsPath = "images\\icons";
     private ArrayList<String> iconsPathList = new ArrayList<>();
-
-
 
     private int rowsNumber = 3;
     private int colsNumber = 4;
@@ -54,23 +53,26 @@ public class GameController implements ActionListener {
      */
     public void loadIconsPath() {
         try {
-            File iconsDir = new File(System.getProperty("user.dir") + "\\" + iconsPath);
-            String[] iconsList = iconsDir.list(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.matches("icon_[0-9]+.png");
-                }
-            });
+            String localPath = "images" + File.separator + "icons";
+            Path path = Paths.get(System.getProperty("user.dir"), localPath);
 
-            if (iconsList == null) return;
+            if (!Files.exists(path))
+                throw new NullPointerException("Invalid path");
 
-            iconsPathList = new ArrayList<>(Arrays.asList(iconsList));
-            for (int i = 0; i < iconsPathList.size(); i++) {
-                iconsPathList.set(i, iconsPath + "\\" +  iconsPathList.get(i));
+            File iconsDir = new File(path.toString());
+
+            File[] iconsList = iconsDir.listFiles((dir, name) -> name.matches("icon_[0-9]+.png"));
+            if (iconsList == null)
+                throw new NullPointerException("Empty directory");
+
+            iconsPathList = new ArrayList<>();
+            for (File file : iconsList) {
+                // Add local path
+                iconsPathList.add(file.toString());
             }
 
-        }catch (NullPointerException e){
-            e.printStackTrace();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(view, "<html>Une erreur a eu lieu lors du chargement des icons, veuillez réessayer.<br/><b>Message : </b>" + e.getMessage() + "</html>", "Erreur de chargement", JOptionPane.ERROR_MESSAGE);
         }
     }
 
