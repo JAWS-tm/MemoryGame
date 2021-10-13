@@ -23,6 +23,7 @@ public class GamePanel extends AppView {
     protected void generatePanel() {
         this.setLayout(new BorderLayout());
 
+        // NORTH
         JPanel textContainer = new JPanel();
         textContainer.setLayout(new GridLayout(2, 1));
         ((GridLayout) textContainer.getLayout()).setHgap(50);
@@ -34,8 +35,15 @@ public class GamePanel extends AppView {
         JLabel description = new JLabel("Retournez toutes les paires pour gagner !", JLabel.CENTER);
         textContainer.add(description);
 
-        this.add(textContainer, BorderLayout.NORTH);
 
+        JPanel northPadding = new JPanel();
+        northPadding.setLayout(new GridLayout(2,1));
+
+        northPadding.add(new JPanel());
+        northPadding.add(textContainer);
+        this.add(northPadding, BorderLayout.NORTH);
+
+        // CENTER
         int rowsNb = controller.getRowsNumber();
         int colsNb = controller.getColsNumber();
 
