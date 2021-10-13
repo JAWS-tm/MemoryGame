@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import additional.AppView;
-import controller.App;
 import controller.GameController;
 
 public class GamePanel extends AppView {
@@ -44,10 +43,12 @@ public class GamePanel extends AppView {
         ((GridLayout) cardContainer.getLayout()).setHgap(20);
         ((GridLayout) cardContainer.getLayout()).setVgap(20);
 
-        cards = getCardsList();
+        cards = controller.getCardsList();
         for(MemoryCard card : cards) {
             cardContainer.add(card);
+            System.out.print("carte : " + card.getPairID() + "   /   ");
         }
+        System.out.println();
 
         JPanel yCenter = new JPanel();
         yCenter.setLayout(new GridBagLayout());
@@ -55,21 +56,4 @@ public class GamePanel extends AppView {
 
         this.add(yCenter, BorderLayout.CENTER);
     }
-
-    private ArrayList<MemoryCard> getCardsList() {
-        ArrayList<MemoryCard> cardsList = new ArrayList<>();
-
-        ArrayList<String> iconsPaths = controller.getIconsPathList();
-        for (int i = 0; i < 2; i++) {
-            for (String str : iconsPaths) {
-                MemoryCard card = new MemoryCard(new ImageIcon(str));
-                cardsList.add(card);
-            }
-            Collections.shuffle(cardsList);
-        }
-        Collections.shuffle(cardsList);
-
-        return cardsList;
-    }
-
 }
