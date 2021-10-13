@@ -44,8 +44,9 @@ public class GamePanel extends AppView {
         ((GridLayout) cardContainer.getLayout()).setHgap(20);
         ((GridLayout) cardContainer.getLayout()).setVgap(20);
 
+        ArrayList<String> iconsPaths = controller.getIconsPathList();
         for (int i = 0; i < 2; i++) {
-            for (String str : controller.getIconsPathList()) {
+            for (String str : iconsPaths) {
                 MemoryCard card = new MemoryCard(new ImageIcon(str));
                 cards.add(card);
             }

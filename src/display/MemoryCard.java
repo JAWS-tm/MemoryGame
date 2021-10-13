@@ -11,7 +11,7 @@ public class MemoryCard extends JButton {
     public MemoryCard(ImageIcon icon) {
         super(backCard);
 
-        this.icon = new ImageIcon(icon.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH));
+        this.icon = new ImageIcon(icon.getImage().getScaledInstance(90, 90, java.awt.Image.SCALE_SMOOTH));
 
         setPreferredSize(new Dimension(100,100));
         addActionListener(new MemoryCardAction(this));
