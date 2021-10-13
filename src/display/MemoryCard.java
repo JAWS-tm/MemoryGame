@@ -7,6 +7,7 @@ public class MemoryCard extends JButton {
     private ImageIcon memoryIcon;
     private int pairID;
     private boolean iconVisible = false;
+    private boolean pairFinded = false;
     private static ImageIcon backCard = new ImageIcon("images/back_card.png");
 
     public MemoryCard(ImageIcon icon, int pairID) {
@@ -26,6 +27,15 @@ public class MemoryCard extends JButton {
         }
 
         iconVisible = !iconVisible;
+    }
+
+    public boolean isPairFinded() {
+        return pairFinded;
+    }
+
+    public void setPairFinded(boolean pairFinded) {
+        this.pairFinded = pairFinded;
+        this.setEnabled(!pairFinded);
     }
 
     public int getPairID() {

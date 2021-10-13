@@ -22,16 +22,22 @@ public class GameController implements ActionListener {
     private MemoryCard selectedPair = null;
     private Timer pairTimer;
     private boolean timerIsStarted = false;
+    private int nbPairFinded = 0;
 
     private int rowsNumber = 3;
     private int colsNumber = 4;
 
     public GameController(GamePanel view) {
         this.view = view;
-
         this.pairTimer = new Timer();
     }
 
+    public void setRowsNumber(int rowsNumber) {
+        this.rowsNumber = rowsNumber;
+    }
+    public void setColsNumber(int colsNumber) {
+        this.colsNumber = colsNumber;
+    }
     public int getRowsNumber() {
         return rowsNumber;
     }
@@ -100,28 +106,36 @@ public class GameController implements ActionListener {
         }
     }
 
+    private void setNewPairFinded(MemoryCard pair1, MemoryCard pair2){
+        pair1.setPairFinded(true);
+        pair2.setPairFinded(true);
+
+        nbPairFinded++;
+        if (nbPairFinded == (rowsNumber * colsNumber)/2){
+            JOptionPane.showMessageDialog(view, "Félicitation tu as gagné !", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
 
-        if (source instanceof MemoryCard card && !timerIsStarted && cards.contains(card) && !card.getIconVisible()) {
+        if (source instanceof MemoryCard card && !timerIsStarted && cards.contains(card) && !card.getIconVisible() && !card.isPairFinded()) {
             card.flipCard();
             if (selectedPair == null){
                 selectedPair = card;
             }else{
                 if (Objects.equals(selectedPair.getPairID(), card.getPairID())){
-                    System.out.println("bonne paire");
-
+                    // Bonne paire
+                    setNewPairFinded(card, selectedPair);
                     selectedPair = null;
                 }else {
-                    System.out.println("mauvaise paire");
-
+                    // Mauvaise paire
                     timerIsStarted = true;
                     pairTimer.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             timerIsStarted = false;
-                            System.out.println("resume");
 
                             card.flipCard();
                             selectedPair.flipCard();
