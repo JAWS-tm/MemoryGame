@@ -44,26 +44,32 @@ public class GamePanel extends AppView {
         ((GridLayout) cardContainer.getLayout()).setHgap(20);
         ((GridLayout) cardContainer.getLayout()).setVgap(20);
 
-        ArrayList<String> iconsPaths = controller.getIconsPathList();
-        for (int i = 0; i < 2; i++) {
-            for (String str : iconsPaths) {
-                MemoryCard card = new MemoryCard(new ImageIcon(str));
-                cards.add(card);
-            }
-            Collections.shuffle(cards);
-        }
-        Collections.shuffle(cards);
-
+        cards = getCardsList();
         for(MemoryCard card : cards) {
             cardContainer.add(card);
         }
 
         JPanel yCenter = new JPanel();
         yCenter.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        yCenter.add(wrap(cardContainer), gbc);
+        yCenter.add(wrap(cardContainer), new GridBagConstraints());
 
         this.add(yCenter, BorderLayout.CENTER);
+    }
+
+    private ArrayList<MemoryCard> getCardsList() {
+        ArrayList<MemoryCard> cardsList = new ArrayList<>();
+
+        ArrayList<String> iconsPaths = controller.getIconsPathList();
+        for (int i = 0; i < 2; i++) {
+            for (String str : iconsPaths) {
+                MemoryCard card = new MemoryCard(new ImageIcon(str));
+                cardsList.add(card);
+            }
+            Collections.shuffle(cardsList);
+        }
+        Collections.shuffle(cardsList);
+
+        return cardsList;
     }
 
 }
