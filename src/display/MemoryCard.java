@@ -4,44 +4,42 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MemoryCard extends JButton {
-    private ImageIcon icon;
+    private ImageIcon memoryIcon;
+    private int pairID;
     private boolean iconVisible = false;
+    private boolean pairFinded = false;
     private static ImageIcon backCard = new ImageIcon("images/back_card.png");
 
-    public MemoryCard(ImageIcon icon) {
+    public MemoryCard(ImageIcon icon, int pairID) {
         super(backCard);
 
-        this.icon = new ImageIcon(icon.getImage().getScaledInstance(90, 90, java.awt.Image.SCALE_SMOOTH));
+        this.memoryIcon = new ImageIcon(icon.getImage().getScaledInstance(90, 90, java.awt.Image.SCALE_SMOOTH));
+        this.pairID = pairID;
 
         setPreferredSize(new Dimension(100,100));
-        addActionListener(new MemoryCardAction(this));
     }
 
     public void flipCard() {
         if (iconVisible) {
             setIcon(backCard);
         } else {
-            setIcon(icon);
-
-            /*Timer timer = new Timer();
-            timer.
-            timer.scheduleAtFixedRate(new TimerTask() {
-                int i = 20;
-
-                public void run() {
-
-                    jLabel.setText("Time left: " + i);
-                    i--;
-
-                    if (i < 0) {
-                        timer.cancel();
-                        jLabel.setText("Time Over");
-                    }
-                }
-            }, 0, 1000);*/
+            setIcon(memoryIcon);
         }
 
         iconVisible = !iconVisible;
+    }
+
+    public boolean isPairFinded() {
+        return pairFinded;
+    }
+
+    public void setPairFinded(boolean pairFinded) {
+        this.pairFinded = pairFinded;
+        this.setEnabled(!pairFinded);
+    }
+
+    public int getPairID() {
+        return pairID;
     }
 
     public boolean getIconVisible() {
