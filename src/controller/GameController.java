@@ -112,7 +112,7 @@ public class GameController implements ActionListener {
 
         nbPairFinded++;
         if (nbPairFinded == (rowsNumber * colsNumber)/2){
-            JOptionPane.showMessageDialog(view, "Félicitation tu as gagné !", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
