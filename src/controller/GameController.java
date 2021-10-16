@@ -1,5 +1,6 @@
 package controller;
 
+import additional.AbstractDifficulty;
 import display.GamePanel;
 import display.MemoryCard;
 
@@ -26,23 +27,12 @@ public class GameController implements ActionListener {
 
     private int rowsNumber = 3;
     private int colsNumber = 4;
+    private AbstractDifficulty difficulty;
 
-    public GameController(GamePanel view) {
-        this.view = view;
+    public GameController(GamePanel view, AbstractDifficulty difficulty) {
         this.pairTimer = new Timer();
-    }
-
-    public void setRowsNumber(int rowsNumber) {
-        this.rowsNumber = rowsNumber;
-    }
-    public void setColsNumber(int colsNumber) {
-        this.colsNumber = colsNumber;
-    }
-    public int getRowsNumber() {
-        return rowsNumber;
-    }
-    public int getColsNumber() {
-        return colsNumber;
+        this.view = view;
+        this.difficulty = difficulty;
     }
 
     public ArrayList<MemoryCard> getCardsList() {
@@ -83,7 +73,7 @@ public class GameController implements ActionListener {
      */
     public void loadIconsPath() {
         try {
-            String localPath = "images" + File.separator + "icons";
+            String localPath = "images" + File.separator + "icons" + File.separator + difficulty.getIconDir();
             Path path = Paths.get(System.getProperty("user.dir"), localPath);
 
             if (!Files.exists(path))
@@ -145,7 +135,10 @@ public class GameController implements ActionListener {
                     }, 1500);
                 }
             }
-
         }
+    }
+
+    public void setDifficulty(AbstractDifficulty level) {
+        this.difficulty = level;
     }
 }
