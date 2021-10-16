@@ -3,16 +3,59 @@ package additional;
 public class Difficulty{
 
     public static class Easy extends AbstractDifficulty{
-        private static final int ROWS = 4;
+        private static final int ROWS = 2;
         private static final int COLS = 3;
         private static final int TIMER = 0;
-        private static final String ICON_DIR = "easy";
+        private static final String ICON_DIR = "emojis";
 
         public Easy() {
             super(ROWS, COLS, TIMER, ICON_DIR);
         }
     }
 
+    public static class Classic extends AbstractDifficulty{
+        private static final int ROWS = 2;
+        private static final int COLS = 4;
+        private static final int TIMER = 0;
+        private static final String ICON_DIR = "classic";
+
+        public Classic() {
+            super(ROWS, COLS, TIMER, ICON_DIR);
+        }
+    }
+
+    public static class Hard extends AbstractDifficulty{
+        private static final int ROWS = 4;
+        private static final int COLS = 3;
+        private static final int TIMER = 0;
+        private static final String ICON_DIR = "hard";
+
+        public Hard() {
+            super(ROWS, COLS, TIMER, ICON_DIR);
+        }
+    }
+
+    public static class Extreme extends AbstractDifficulty{
+        private static final int ROWS = 4;
+        private static final int COLS = 3;
+        private static final int TIMER = 0;
+        private static final String ICON_DIR = "extreme";
+
+        public Extreme() {
+            super(ROWS, COLS, TIMER, ICON_DIR);
+        }
+    }
+
+    public static class Personalized extends AbstractDifficulty{
+        public Personalized(int rows, int cols, int timer, String iconDir) {
+            super(rows, cols, timer, iconDir);
+        }
+    }
+
+
+    public static boolean isValidGridSize(int rows, int cols) {
+        return (rows * cols) % 2 == 0;
+    }
     /*public Difficulty(Difficulty diff){
 
     }*/

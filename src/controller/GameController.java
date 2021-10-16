@@ -21,16 +21,14 @@ public class GameController implements ActionListener {
 
     private ArrayList<MemoryCard> cards = new ArrayList<>();
     private MemoryCard selectedPair = null;
-    private Timer pairTimer;
+    private Timer pairCooldown;
     private boolean timerIsStarted = false;
     private int nbPairFinded = 0;
 
-    private int rowsNumber = 3;
-    private int colsNumber = 4;
     private AbstractDifficulty difficulty;
 
     public GameController(GamePanel view, AbstractDifficulty difficulty) {
-        this.pairTimer = new Timer();
+        this.pairCooldown = new Timer();
         this.view = view;
         this.difficulty = difficulty;
     }
@@ -86,9 +84,13 @@ public class GameController implements ActionListener {
                 throw new NullPointerException("Empty directory");
 
             iconsPathList = new ArrayList<>();
+            int imagesToLoad = difficulty.getPairsNb();
             for (File file : iconsList) {
+                if (imagesToLoad == 0)
+                    break;
                 // Add local path
                 iconsPathList.add(file.toString());
+                imagesToLoad--;
             }
 
         }catch (Exception e){
@@ -101,7 +103,7 @@ public class GameController implements ActionListener {
         pair2.setPairFinded(true);
 
         nbPairFinded++;
-        if (nbPairFinded == (rowsNumber * colsNumber)/2){
+        if (nbPairFinded == difficulty.getPairsNb()){
             JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
         }
     }
@@ -122,7 +124,7 @@ public class GameController implements ActionListener {
                 }else {
                     // Mauvaise paire
                     timerIsStarted = true;
-                    pairTimer.schedule(new TimerTask() {
+                    pairCooldown.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             timerIsStarted = false;

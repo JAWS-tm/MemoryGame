@@ -136,7 +136,7 @@ public class GameConfigPanel extends AppView {
 	private JFrame personnaliserPopUp;
 	private JComboBox < String > choixImages;
 
-	public void openPersonnaliserPopUp() {
+	public void openPersonalizedPopUp() {
 		personnaliserPopUp = new JFrame();
 		personnaliserPopUp.setVisible(true);
 		personnaliserPopUp.setSize(300, 250);
@@ -246,7 +246,7 @@ public class GameConfigPanel extends AppView {
 		return choixImages;
 	}
 
-	public JFrame getPersonnaliserPopUp() {
+	public JFrame getPersonalizedPopUp() {
 		return personnaliserPopUp;
 	}
 
