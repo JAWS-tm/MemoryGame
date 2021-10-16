@@ -4,6 +4,7 @@ import additional.AppView;
 import display.MainPanel;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
 
 public class App {
     private static App instance;
@@ -32,7 +33,7 @@ public class App {
         appFrame.validate();
     }
 
-    public JFrame getAppFrame() {
-        return appFrame;
+    public void closeApp() {
+        appFrame.dispatchEvent(new WindowEvent(appFrame, WindowEvent.WINDOW_CLOSING));
     }
 }

@@ -24,6 +24,6 @@ public class MainController implements ActionListener {
         else if (source == view.getShowHighscoresBtn())
             System.out.println("highscores");
         else if (source == view.getQuitGameBtn())
-            appInstance.getAppFrame().dispatchEvent(new WindowEvent(appInstance.getAppFrame(), WindowEvent.WINDOW_CLOSING));
+            App.getInstance().closeApp();
     }
 }
