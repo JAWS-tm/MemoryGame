@@ -3,7 +3,7 @@ package additional;
 import javax.swing.*;
 
 public abstract class AppView extends JPanel {
-    protected abstract void generatePanel();
+    protected abstract void generatePanel() throws AppException;
 
     protected JPanel wrap(JComponent element) {
         JPanel wrapper = new JPanel();

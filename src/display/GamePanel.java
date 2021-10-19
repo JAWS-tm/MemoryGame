@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import additional.AbstractDifficulty;
+import additional.AppException;
 import additional.AppView;
 import controller.GameController;
 
@@ -15,7 +16,7 @@ public class GamePanel extends AppView {
     private ArrayList<MemoryCard> cards = new ArrayList<>();
     private AbstractDifficulty difficulty;
 
-    public GamePanel(AbstractDifficulty difficulty) {
+    public GamePanel(AbstractDifficulty difficulty) throws AppException {
         super();
 
         if (difficulty == null) throw new NullPointerException("Game difficulty not instanced");
@@ -25,12 +26,8 @@ public class GamePanel extends AppView {
         generatePanel();
     }
 
-    public GameController getController() {
-        return controller;
-    }
-
     @Override
-    protected void generatePanel() {
+    protected void generatePanel() throws AppException {
         this.setLayout(new BorderLayout());
 
         // NORTH

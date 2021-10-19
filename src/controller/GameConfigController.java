@@ -7,9 +7,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
 import additional.AbstractDifficulty;
+import additional.AppException;
 import additional.Difficulty;
 import display.GameConfigPanel;
 import display.GamePanel;
+import display.MainPanel;
 
 public class GameConfigController implements ActionListener{
 	private GameConfigPanel view;
@@ -101,7 +103,12 @@ public class GameConfigController implements ActionListener{
 			else if(difficultySelected == null)
 				JOptionPane.showMessageDialog(view, "Selectionnez le niveau !", "Erreur: NIVEAU", JOptionPane.PLAIN_MESSAGE);
 			else {
-				App.getInstance().changeView(new GamePanel(difficultySelected));
+				try {
+					App.getInstance().changeView(new GamePanel(difficultySelected));
+				} catch (AppException exception){
+					if (exception.getErrorType() == AppException.Type.VIEW_LOADING_FAILED)
+						App.getInstance().changeView(new MainPanel());
+				}
 			}
 
 		}
