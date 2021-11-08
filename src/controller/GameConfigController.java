@@ -19,8 +19,8 @@ public class GameConfigController implements ActionListener{
 	private  JToggleButton modeSelected;
 	private AbstractDifficulty difficultySelected;
 
-	public GameConfigController(GameConfigPanel local) {
-		this.view = local;
+	public GameConfigController(GameConfigPanel view) {
+		this.view = view;
 	}
 	
 	@Override
