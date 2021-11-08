@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import display.GameConfigPanel;
 import display.GameLeaderboardPanel;
+import display.MainPanel;
 
 public class GameLeaderboardController implements ActionListener {
 	
@@ -17,7 +18,7 @@ public class GameLeaderboardController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		
-		
+			if(source == view.getClose())
+				App.getInstance().changeView(new MainPanel());
 	}
 }

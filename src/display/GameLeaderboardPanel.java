@@ -22,60 +22,60 @@ public class GameLeaderboardPanel extends AppView {
 	private GameLeaderboardController controller;
 	
 	private JPanel leaderboardFlowLayout, difficulty, difficultySize, centerDifficultySize, wrapSoloDuoInBL;
-	private JLabel leaderboard, duo, number1, number2, number3, number4, number5;
-	private JButton play, validerPersonnaliser, annulerPersonnaliser;
+	private JLabel leaderboard;
+	private JButton close;
 	
 	
 	@Override
 	protected void generatePanel() {
-		this.setLayout(new BorderLayout());
+		//this.setLayout(new BorderLayout());
+		//this.setBackground(Color.YELLOW);
+		this.setLayout(new GridLayout(1,3));
 		this.setBackground(Color.YELLOW);
 		
+		JPanel mainVideGauche = new JPanel();
+		mainVideGauche.setBackground(Color.BLACK);
 		
-		////	creation du conteneur des boutons des modes
-	
+		JPanel mainVideDroit = new JPanel();
+		mainVideDroit.setBackground(Color.BLACK);
+		
+		JPanel mainBorderLayout = new JPanel();
+		mainBorderLayout.setLayout(new BorderLayout());
+		mainBorderLayout.setBackground(new Color(0,0,0,0));
 		
 		JPanel premierVide = new JPanel();
-		premierVide.setPreferredSize(new Dimension(0, 200));
+		premierVide.setPreferredSize(new Dimension(0,200));
 		premierVide.setBackground(new Color(0,0,0,0));
-		
 		
 		
 		wrapSoloDuoInBL =new JPanel();
 		wrapSoloDuoInBL.setLayout(new BorderLayout());
-	
+		//wrapSoloDuoInBL.setBackground(new Color(0,0,0,0));//////////
+		
 		
 		leaderboardFlowLayout = new JPanel(); 
 		leaderboardFlowLayout.setLayout(new FlowLayout());
-		leaderboardFlowLayout.add(premierVide);
+		leaderboardFlowLayout.setBackground(new Color(0,0,0,0));
 		
 		
 		leaderboard = new JLabel("LEADERBOARD", JLabel.CENTER);
 		leaderboard.setFont(new Font(leaderboard.getFont().getFontName(), Font.ROMAN_BASELINE, 40));
 		leaderboard.setForeground(Color.DARK_GRAY);
-		leaderboardFlowLayout.add(leaderboard);
-		leaderboardFlowLayout.setBackground(new Color(0,0,0,0));
 		
-		
-		//wrapSoloDuoInBL.add(leaderboardFlowLayout, BorderLayout.CENTER);
-		this.add(leaderboardFlowLayout, BorderLayout.NORTH);
-	
-		
-		//leaderboard.setPreferredSize(new Dimension(200,50));
 		
 		JPanel videWrapSoloDuoInBL = new JPanel();
 		videWrapSoloDuoInBL.setPreferredSize(new Dimension(100,100));
-		wrapSoloDuoInBL.add(videWrapSoloDuoInBL, BorderLayout.NORTH);
-	
+		//videWrapSoloDuoInBL.setBackground(new Color(0,0,0,0));////////////////////////
 		
-		////creation du conteneur des boutons difficulté
 		
 		centerDifficultySize = new JPanel(); // premier sous-conteneur
 		centerDifficultySize.setLayout(new BorderLayout());
 		centerDifficultySize.setBackground(new Color(0,0,0,0));
 		
+		
 		difficultySize = new JPanel(); // deuxieme sous-conteneur
 		difficultySize.setBackground(new Color(0,0,0,0));
+		
 		
 		difficulty = new JPanel(); // troisieme sous-conteneur
 		GridLayout difficulty2 = new GridLayout(5,1);
@@ -84,14 +84,13 @@ public class GameLeaderboardPanel extends AppView {
 		difficulty.setBackground(new Color(0,0,0,0));
 		
 		
-		//JPanel number1Panel, number2Panel, number3Panel, number4Panel, number5Panel;
-		
 		for(int i =1; i<=5; i++) {
 			JLabel number1 = new JLabel("1", JLabel.CENTER);
 			JPanel number1Panel = new JPanel();
 			JPanel test = new JPanel();
 			test.setBackground(new Color(0,0,0,0));
-			JButton lala = new JButton("test");
+			JPanel lala = new JPanel();
+			lala.setBackground(new Color(0,0,0,0));
 			lala.setPreferredSize(new Dimension(200,30));
 			number1Panel.setBackground(Color.WHITE);
 			number1.setForeground(Color.ORANGE);
@@ -104,40 +103,41 @@ public class GameLeaderboardPanel extends AppView {
 		
 		
 		
-		//encapsulation
-		difficultySize.add(difficulty);
-		
-		centerDifficultySize.add(difficultySize, BorderLayout.CENTER);
-		
-
-		this.add(centerDifficultySize);
-		
-		// creation du conteneurdu bouton play 
-		
 		JPanel wrapPlayInBL = new JPanel();
 		wrapPlayInBL.setLayout(new BorderLayout());
+		wrapPlayInBL.setBackground(new Color(0,0,0,0));
+		
 		
 		JPanel videNordWrapPlayInBL = new JPanel();
 		videNordWrapPlayInBL.setPreferredSize(new Dimension(100,120));
+		videNordWrapPlayInBL.setBackground(new Color(0,0,0,0));
 		
-		wrapPlayInBL.add(videNordWrapPlayInBL, BorderLayout.SOUTH);
 		
-		play = new JButton("Play");
+		close = new JButton("close");
+		
 		JPanel playFlowLayout = new JPanel();
 		playFlowLayout.setLayout(new FlowLayout());
-		play.setPreferredSize(new Dimension(300,60));
+		playFlowLayout.setBackground(new Color(0,0,0,0));
+		close.setPreferredSize(new Dimension(150,40));
 		
-		playFlowLayout.add(play);
 		
+		// regrouppement des add :
+		
+		leaderboardFlowLayout.add(premierVide);
+		leaderboardFlowLayout.add(leaderboard);
+		mainBorderLayout.add(leaderboardFlowLayout, BorderLayout.NORTH);
+		wrapSoloDuoInBL.add(videWrapSoloDuoInBL, BorderLayout.NORTH);
+		difficultySize.add(difficulty);
+		centerDifficultySize.add(difficultySize);
+		mainBorderLayout.add(centerDifficultySize, BorderLayout.CENTER);
+		wrapPlayInBL.add(videNordWrapPlayInBL, BorderLayout.SOUTH);
+		playFlowLayout.add(close);
 		wrapPlayInBL.add(playFlowLayout, BorderLayout.CENTER);
-		
-		
-		
-		this.add(wrapPlayInBL, BorderLayout.SOUTH);
-		
-		
-		
-		play.addActionListener(controller);
+		mainBorderLayout.add(wrapPlayInBL, BorderLayout.SOUTH);
+		this.add(mainVideGauche);
+		this.add(mainBorderLayout);
+		this.add(mainVideDroit);
+		close.addActionListener(controller);
 		
 	}
 	
@@ -148,7 +148,7 @@ public class GameLeaderboardPanel extends AppView {
         generatePanel();
     }
 	
-	public JButton getPlay() {
-		return play;
+	public JButton getClose() {
+		return close;
 	}
 }
