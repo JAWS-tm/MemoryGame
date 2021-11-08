@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class MemoryCardAction extends AbstractAction {
-    MemoryCard card;
+    private MemoryCard card;
 
     public MemoryCardAction(MemoryCard parent) {
         card = parent;
