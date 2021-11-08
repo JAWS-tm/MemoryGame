@@ -1,5 +1,7 @@
 package controller;
 
+import additional.AbstractDifficulty;
+import additional.AppException;
 import display.GamePanel;
 import display.MemoryCard;
 
@@ -20,32 +22,19 @@ public class GameController implements ActionListener {
 
     private ArrayList<MemoryCard> cards = new ArrayList<>();
     private MemoryCard selectedPair = null;
-    private Timer pairTimer;
+    private Timer pairCooldown;
     private boolean timerIsStarted = false;
     private int nbPairFinded = 0;
 
-    private int rowsNumber = 3;
-    private int colsNumber = 4;
+    private AbstractDifficulty difficulty;
 
-    public GameController(GamePanel view) {
+    public GameController(GamePanel view, AbstractDifficulty difficulty) {
+        this.pairCooldown = new Timer();
         this.view = view;
-        this.pairTimer = new Timer();
+        this.difficulty = difficulty;
     }
 
-    public void setRowsNumber(int rowsNumber) {
-        this.rowsNumber = rowsNumber;
-    }
-    public void setColsNumber(int colsNumber) {
-        this.colsNumber = colsNumber;
-    }
-    public int getRowsNumber() {
-        return rowsNumber;
-    }
-    public int getColsNumber() {
-        return colsNumber;
-    }
-
-    public ArrayList<MemoryCard> getCardsList() {
+    public ArrayList<MemoryCard> getCardsList() throws AppException {
         if (!cards.isEmpty())
             return cards;
 
@@ -70,7 +59,7 @@ public class GameController implements ActionListener {
      * @return Une {@code ArrayList<String>} contenant les chemins de chaque icon.
      *          Retourne {@code null} si une erreur s'est produite
      */
-    private ArrayList<String> getIconsPathList() {
+    private ArrayList<String> getIconsPathList() throws AppException {
         if (iconsPathList.isEmpty()) {
             loadIconsPath();
         }
@@ -81,9 +70,9 @@ public class GameController implements ActionListener {
      * Recherche tous les icons du dossier icons et les stockent dans {@code iconsPathList} contenant leurs chemins
      *
      */
-    public void loadIconsPath() {
+    public void loadIconsPath() throws AppException {
         try {
-            String localPath = "images" + File.separator + "icons";
+            String localPath = "images" + File.separator + "icons" + File.separator + difficulty.getIconDir();
             Path path = Paths.get(System.getProperty("user.dir"), localPath);
 
             if (!Files.exists(path))
@@ -96,22 +85,27 @@ public class GameController implements ActionListener {
                 throw new NullPointerException("Empty directory");
 
             iconsPathList = new ArrayList<>();
+            int imagesToLoad = difficulty.getPairsNb();
             for (File file : iconsList) {
+                if (imagesToLoad == 0)
+                    break;
                 // Add local path
                 iconsPathList.add(file.toString());
+                imagesToLoad--;
             }
 
         }catch (Exception e){
             JOptionPane.showMessageDialog(view, "<html>Une erreur a eu lieu lors du chargement des icons, veuillez réessayer.<br/><b>Message : </b>" + e.getMessage() + "</html>", "Erreur de chargement", JOptionPane.ERROR_MESSAGE);
+            throw new AppException(AppException.Type.VIEW_LOADING_FAILED);
         }
     }
 
-    private void setNewPairFinded(MemoryCard pair1, MemoryCard pair2){
+    private void setNewPairFunded(MemoryCard pair1, MemoryCard pair2){
         pair1.setPairFinded(true);
         pair2.setPairFinded(true);
 
         nbPairFinded++;
-        if (nbPairFinded == (rowsNumber * colsNumber)/2){
+        if (nbPairFinded == difficulty.getPairsNb()){
             JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
         }
     }
@@ -127,12 +121,12 @@ public class GameController implements ActionListener {
             }else{
                 if (Objects.equals(selectedPair.getPairID(), card.getPairID())){
                     // Bonne paire
-                    setNewPairFinded(card, selectedPair);
+                    setNewPairFunded(card, selectedPair);
                     selectedPair = null;
                 }else {
                     // Mauvaise paire
                     timerIsStarted = true;
-                    pairTimer.schedule(new TimerTask() {
+                    pairCooldown.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             timerIsStarted = false;
@@ -145,7 +139,10 @@ public class GameController implements ActionListener {
                     }, 1500);
                 }
             }
-
         }
+    }
+
+    public void setDifficulty(AbstractDifficulty level) {
+        this.difficulty = level;
     }
 }

@@ -6,20 +6,28 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import additional.AbstractDifficulty;
+import additional.AppException;
 import additional.AppView;
 import controller.GameController;
 
 public class GamePanel extends AppView {
     private GameController controller;
     private ArrayList<MemoryCard> cards = new ArrayList<>();
+    private AbstractDifficulty difficulty;
 
-    public GamePanel() {
+    public GamePanel(AbstractDifficulty difficulty) throws AppException {
         super();
-        this.controller = new GameController(this);
+
+        if (difficulty == null) throw new NullPointerException("Game difficulty not instanced");
+        this.difficulty = difficulty;
+        this.controller = new GameController(this, difficulty);
+
         generatePanel();
     }
 
-    protected void generatePanel() {
+    @Override
+    protected void generatePanel() throws AppException {
         this.setLayout(new BorderLayout());
 
         // NORTH
@@ -43,8 +51,10 @@ public class GamePanel extends AppView {
         this.add(northPadding, BorderLayout.NORTH);
 
         // CENTER
-        int rowsNb = controller.getRowsNumber();
-        int colsNb = controller.getColsNumber();
+        /*int rowsNb = controller.getRowsNumber();
+        int colsNb = controller.getColsNumber();*/
+        int rowsNb = difficulty.getRowsNumber();
+        int colsNb = difficulty.getColsNumber();
 
         JPanel cardContainer = new JPanel();
         cardContainer.setLayout(new GridLayout(rowsNb, colsNb));
@@ -54,9 +64,7 @@ public class GamePanel extends AppView {
         cards = controller.getCardsList();
         for(MemoryCard card : cards) {
             cardContainer.add(card);
-            System.out.print("carte : " + card.getPairID() + "   /   ");
         }
-        System.out.println();
 
         JPanel yCenter = new JPanel();
         yCenter.setLayout(new GridBagLayout());
