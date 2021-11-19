@@ -6,7 +6,7 @@ public class Difficulty{
         private static final int ROWS = 2;
         private static final int COLS = 3;
         private static final int TIMER = 0;
-        private static final String ICON_DIR = "emojis";
+        private static final String ICON_DIR = "facile";
 
         public Easy() {
             super(ROWS, COLS, TIMER, ICON_DIR);
@@ -17,7 +17,7 @@ public class Difficulty{
         private static final int ROWS = 2;
         private static final int COLS = 4;
         private static final int TIMER = 0;
-        private static final String ICON_DIR = "classic";
+        private static final String ICON_DIR = "normal";
 
         public Classic() {
             super(ROWS, COLS, TIMER, ICON_DIR);
@@ -28,7 +28,7 @@ public class Difficulty{
         private static final int ROWS = 4;
         private static final int COLS = 3;
         private static final int TIMER = 0;
-        private static final String ICON_DIR = "hard";
+        private static final String ICON_DIR = "difficile";
 
         public Hard() {
             super(ROWS, COLS, TIMER, ICON_DIR);
