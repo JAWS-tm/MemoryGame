@@ -74,7 +74,7 @@ public class GamePanel extends AppView {
         this.add(yCenter, BorderLayout.CENTER);
     }
 
-    private void openEndFrame() {
+    public void openEndFrame() {
         endGameFrame = new JFrame();
         endGameFrame.setVisible(true);
         endGameFrame.setSize(400, 300);
@@ -82,8 +82,16 @@ public class GamePanel extends AppView {
         endGameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         JPanel container = new JPanel();
+        endGameFrame.setContentPane(container);
         container.setLayout(new GridLayout(3, 1));
 
-        JLabel
+        JLabel mainText = new JLabel("Félicitation !", JLabel.CENTER);
+        container.add(mainText);
+
+        JTextField playerName = new JTextField();
+        container.add(playerName);
+
+        JButton validate = new JButton("Valider");
+        container.add(validate);
     }
 }

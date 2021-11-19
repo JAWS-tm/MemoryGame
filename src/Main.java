@@ -1,9 +1,9 @@
-//import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import controller.App;
 
 public class Main {
     public static void main(String[] args) {
-        //FlatLightLaf.setup();
+        FlatLightLaf.setup();
 
         App app = App.getInstance();
     }

@@ -111,7 +111,7 @@ public class GameController implements ActionListener {
     }
 
     private void endOfGame() {
-
+        view.openEndFrame();
         JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
     }
 
