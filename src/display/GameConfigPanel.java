@@ -161,7 +161,7 @@ public class GameConfigPanel extends AppView {
 
 		String[] styles = {
 				"",
-				"jouets",
+				"objets",
 				"emojis"
 		};
 		choixImages = new JComboBox < > (styles);
