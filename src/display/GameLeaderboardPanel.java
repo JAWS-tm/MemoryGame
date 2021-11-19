@@ -58,7 +58,7 @@ public class GameLeaderboardPanel extends AppView {
 		leaderboardFlowLayout.setBackground(new Color(0,0,0,0));
 		
 		
-		leaderboard = new JLabel("LEADERBOARD", JLabel.CENTER);
+		leaderboard = new JLabel("Tableau des Scores", JLabel.CENTER);
 		leaderboard.setFont(new Font(leaderboard.getFont().getFontName(), Font.ROMAN_BASELINE, 40));
 		leaderboard.setForeground(Color.DARK_GRAY);
 		
@@ -113,7 +113,7 @@ public class GameLeaderboardPanel extends AppView {
 		videNordWrapPlayInBL.setBackground(new Color(0,0,0,0));
 		
 		
-		close = new JButton("close");
+		close = new JButton("Retour");
 		
 		JPanel playFlowLayout = new JPanel();
 		playFlowLayout.setLayout(new FlowLayout());
