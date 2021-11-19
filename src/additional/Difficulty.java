@@ -4,7 +4,7 @@ public class Difficulty{
 
     public static class Easy extends AbstractDifficulty{
         private static final int ROWS = 3;
-        private static final int COLS = 3;
+        private static final int COLS = 2;
         private static final int TIMER = 0;
         private static final String ICON_DIR = "facile";
 
@@ -25,8 +25,8 @@ public class Difficulty{
     }
 
     public static class Hard extends AbstractDifficulty{
-        private static final int ROWS = 8;
-        private static final int COLS = 4;
+        private static final int ROWS = 4;
+        private static final int COLS = 8;
         private static final int TIMER = 0;
         private static final String ICON_DIR = "difficile";
 
@@ -36,8 +36,8 @@ public class Difficulty{
     }
 
     public static class Extreme extends AbstractDifficulty{
-        private static final int ROWS = 8;
-        private static final int COLS = 4;
+        private static final int ROWS = 4;
+        private static final int COLS = 8;
         private static final int TIMER = 200;
         private static final String ICON_DIR = "extreme";
 
