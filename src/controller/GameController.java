@@ -136,7 +136,7 @@ public class GameController implements ActionListener {
 
                             selectedPair = null;
                         }
-                    }, 1500);
+                    }, difficulty.getDelayCard());
                 }
             }
         }
