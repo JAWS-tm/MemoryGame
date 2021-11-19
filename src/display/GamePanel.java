@@ -15,6 +15,7 @@ public class GamePanel extends AppView {
     private GameController controller;
     private ArrayList<MemoryCard> cards = new ArrayList<>();
     private AbstractDifficulty difficulty;
+    private JFrame endGameFrame;
 
     public GamePanel(AbstractDifficulty difficulty) throws AppException {
         super();
@@ -71,5 +72,18 @@ public class GamePanel extends AppView {
         yCenter.add(wrap(cardContainer), new GridBagConstraints());
 
         this.add(yCenter, BorderLayout.CENTER);
+    }
+
+    private void openEndFrame() {
+        endGameFrame = new JFrame();
+        endGameFrame.setVisible(true);
+        endGameFrame.setSize(400, 300);
+        endGameFrame.setLocationRelativeTo(null);
+        endGameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        JPanel container = new JPanel();
+        container.setLayout(new GridLayout(3, 1));
+
+        JLabel
     }
 }

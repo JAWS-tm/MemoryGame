@@ -106,8 +106,13 @@ public class GameController implements ActionListener {
 
         nbPairFinded++;
         if (nbPairFinded == difficulty.getPairsNb()){
-            JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
+            this.endOfGame();
         }
+    }
+
+    private void endOfGame() {
+
+        JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
     }
 
     @Override
@@ -116,14 +121,14 @@ public class GameController implements ActionListener {
 
         if (source instanceof MemoryCard card && !timerIsStarted && cards.contains(card) && !card.getIconVisible() && !card.isPairFinded()) {
             card.flipCard();
-            if (selectedPair == null){
+            if (selectedPair == null) {
                 selectedPair = card;
-            }else{
-                if (Objects.equals(selectedPair.getPairID(), card.getPairID())){
+            } else {
+                if (Objects.equals(selectedPair.getPairID(), card.getPairID())) {
                     // Bonne paire
                     setNewPairFunded(card, selectedPair);
                     selectedPair = null;
-                }else {
+                } else {
                     // Mauvaise paire
                     timerIsStarted = true;
                     pairCooldown.schedule(new TimerTask() {
@@ -140,9 +145,5 @@ public class GameController implements ActionListener {
                 }
             }
         }
-    }
-
-    public void setDifficulty(AbstractDifficulty level) {
-        this.difficulty = level;
     }
 }

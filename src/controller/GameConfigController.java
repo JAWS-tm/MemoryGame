@@ -38,8 +38,9 @@ public class GameConfigController implements ActionListener{
 				int cols = Integer.parseInt(view.getLargeurInput().getText());
 				int rows = Integer.parseInt(view.getHauteurInput().getText());
 				String iconsStyle = (String) view.getChoixImages().getSelectedItem();
+
 				if(cols < 2 || cols > 10 || rows < 2 || rows > 10) {
-					JOptionPane.showMessageDialog(view, "Veuillez entrer une largeur/hauteur entre 2 et 10 !", "Erreur: TAILLE", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(view, "Veuillez entrer une largeur/hauteur entre 2 et 10 !", "Erreur: Taille", JOptionPane.PLAIN_MESSAGE);
 					view.getPersonalizedPopUp().setVisible(true);
 				}
 				else if(view.getChoixImages().getSelectedItem() == "") {
@@ -53,6 +54,7 @@ public class GameConfigController implements ActionListener{
 						JOptionPane.showMessageDialog(view,
 								"Les dimensions séléctionnées ne forment pas une grille valide !\n" +
 										"La grille doit contenir un nombre pair de case (ex : 3*4)", "Erreur: Taille", JOptionPane.PLAIN_MESSAGE);
+
 						view.getPersonalizedPopUp().setVisible(true);
 						return;
 					}
@@ -66,11 +68,11 @@ public class GameConfigController implements ActionListener{
 			return;
 		}
 
-		if(source == view.getPersonalizedDifficulty_cancel())
+		else if(source == view.getPersonalizedDifficulty_cancel())
 			view.getPersonalizedPopUp().setVisible(false);
 
 		
-		if(source == view.getSoloModeBtn()) {
+		else if(source == view.getSoloModeBtn()) {
 			view.getDuoModeBtn().setSelected(false);
 			modeSelected = (JToggleButton) source;
 		} else if(source == view.getDuoModeBtn()) {
