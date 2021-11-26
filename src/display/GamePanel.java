@@ -4,18 +4,19 @@ package display;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import additional.AbstractDifficulty;
 import additional.AppException;
 import additional.AppView;
+import controller.App;
 import controller.GameController;
 
 public class GamePanel extends AppView {
     private GameController controller;
     private ArrayList<MemoryCard> cards = new ArrayList<>();
     private AbstractDifficulty difficulty;
-    private JFrame endGameFrame;
+    private JWindow endGameWindow;
+    private JPanel cardContainer;
 
     public GamePanel(AbstractDifficulty difficulty) throws AppException {
         super();
@@ -52,12 +53,10 @@ public class GamePanel extends AppView {
         this.add(northPadding, BorderLayout.NORTH);
 
         // CENTER
-        /*int rowsNb = controller.getRowsNumber();
-        int colsNb = controller.getColsNumber();*/
         int rowsNb = difficulty.getRowsNumber();
         int colsNb = difficulty.getColsNumber();
 
-        JPanel cardContainer = new JPanel();
+        cardContainer = new JPanel();
         cardContainer.setLayout(new GridLayout(rowsNb, colsNb));
         ((GridLayout) cardContainer.getLayout()).setHgap(20);
         ((GridLayout) cardContainer.getLayout()).setVgap(20);
@@ -75,21 +74,37 @@ public class GamePanel extends AppView {
     }
 
     public void openEndFrame() {
-        endGameFrame = new JFrame();
-        endGameFrame.setVisible(true);
-        endGameFrame.setSize(400, 300);
-        endGameFrame.setLocationRelativeTo(null);
-        endGameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        cardContainer.setVisible(false);
+        
+        endGameWindow = new JWindow(App.getInstance().getFrame());
+        endGameWindow.setVisible(true);
+        endGameWindow.setSize(200, 200);
+        endGameWindow.setLocationRelativeTo(null);
+        //endGameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        endGameWindow.requestFocus();
+        endGameWindow.setBackground(Color.BLACK);
 
         JPanel container = new JPanel();
-        endGameFrame.setContentPane(container);
+        endGameWindow.setContentPane(container);
         container.setLayout(new GridLayout(3, 1));
 
+        JPanel texts = new JPanel();
+        texts.setLayout(new GridLayout(2, 1));
+        texts.setBackground(Color.black);
+        container.add(texts);
+
         JLabel mainText = new JLabel("Félicitation !", JLabel.CENTER);
-        container.add(mainText);
+        mainText.setForeground(Color.WHITE);
+        mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 20));
+        texts.add(mainText);
+        JLabel instruction = new JLabel("Entrez votre nom ci-dessous", JLabel.CENTER);
+        instruction.setForeground(Color.WHITE);
+        texts.add(instruction);
+
 
         JTextField playerName = new JTextField();
-        container.add(playerName);
+        playerName.setPreferredSize(new Dimension(180, 30));
+        container.add(wrap(playerName));
 
         JButton validate = new JButton("Valider");
         container.add(validate);
