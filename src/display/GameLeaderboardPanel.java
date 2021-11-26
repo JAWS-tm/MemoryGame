@@ -6,23 +6,20 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
+import javax.swing.*;
 
 import additional.AppView;
+import controller.App;
 import controller.GameLeaderboardController;
 import controller.MainController;
 
 public class GameLeaderboardPanel extends AppView {
-
-
 	private GameLeaderboardController controller;
-	
-	private JPanel leaderboardFlowLayout, difficulty, difficultySize, centerDifficultySize, wrapSoloDuoInBL;
-	private JLabel leaderboard;
+
 	private JButton close, scoreSolo, scoreDuo;
 	
 	
@@ -46,9 +43,9 @@ public class GameLeaderboardPanel extends AppView {
 		JPanel premierVide = new JPanel();
 		premierVide.setPreferredSize(new Dimension(0,110));
 		premierVide.setBackground(new Color(0,0,0,0));
-		
-		
-		wrapSoloDuoInBL =new JPanel();
+
+
+		JPanel wrapSoloDuoInBL = new JPanel();
 		wrapSoloDuoInBL.setLayout(new BorderLayout());
 		//wrapSoloDuoInBL.setBackground(new Color(0,0,0,0));//////////
 		
@@ -67,7 +64,7 @@ public class GameLeaderboardPanel extends AppView {
 		buttonsFlowLayout.setBackground(new Color(0,0,0,0));
 		
 		
-		leaderboard = new JLabel("Tableau des Scores", JLabel.CENTER);
+		JLabel leaderboard = new JLabel("Tableau des Scores", JLabel.CENTER);
 		leaderboard.setFont(new Font(leaderboard.getFont().getFontName(), Font.ROMAN_BASELINE, 40));
 		leaderboard.setForeground(Color.DARK_GRAY);
 		
@@ -77,43 +74,58 @@ public class GameLeaderboardPanel extends AppView {
 		JPanel videWrapSoloDuoInBL = new JPanel();
 		videWrapSoloDuoInBL.setPreferredSize(new Dimension(100,100));
 		//videWrapSoloDuoInBL.setBackground(new Color(0,0,0,0));////////////////////////
-		
-		
-		centerDifficultySize = new JPanel(); // premier sous-conteneur
+
+
+		JPanel centerDifficultySize = new JPanel(); // premier sous-conteneur
 		centerDifficultySize.setLayout(new BorderLayout());
 		centerDifficultySize.setBackground(new Color(0,0,0,0));
-		
-		
-		difficultySize = new JPanel(); // deuxieme sous-conteneur
+
+
+		JPanel difficultySize = new JPanel(); // deuxieme sous-conteneur
 		difficultySize.setBackground(new Color(0,0,0,0));
-		
-		
-		difficulty = new JPanel(); // troisieme sous-conteneur
-		GridLayout difficulty2 = new GridLayout(5,1);
-		difficulty2.setVgap(20);
-		difficulty.setLayout(difficulty2);
-		difficulty.setBackground(new Color(0,0,0,0));
-		
-		
-		for(int i =1; i<=5; i++) {
-			JLabel number1 = new JLabel("1", JLabel.CENTER);
-			JPanel number1Panel = new JPanel();
-			JPanel test = new JPanel();
-			test.setBackground(new Color(0,0,0,0));
-			JPanel lala = new JPanel();
-			lala.setBackground(new Color(0,0,0,0));
-			lala.setPreferredSize(new Dimension(200,30));
-			number1Panel.setBackground(Color.WHITE);
+
+
+		GridLayout scoresListLayout = new GridLayout(5,1);
+		scoresListLayout.setVgap(20);
+		JPanel scoresList = new JPanel(); // troisieme sous-conteneur
+		scoresList.setLayout(scoresListLayout);
+		scoresList.setBackground(new Color(0,0,0,0));
+
+		HashMap<String, Integer> highScores = App.getHighScores(App.SOLO);
+
+		int i = 1;
+		for (Map.Entry<String, Integer> entry : highScores.entrySet()) {
+			JLabel number1 = new JLabel(String.valueOf(i++), JLabel.CENTER);
 			number1.setForeground(Color.ORANGE);
 			number1.setPreferredSize(new Dimension(20,20));
-			number1Panel.add(number1);
-			test.add(number1Panel);
-			test.add(lala);
-			difficulty.add(test);
+
+			JPanel nbPanel = new JPanel();
+			nbPanel.setBackground(Color.WHITE);
+			nbPanel.add(number1);
+
+			JPanel scorePanel = new JPanel();
+			scorePanel.setBackground(Color.WHITE);
+			scorePanel.setPreferredSize(new Dimension(200,30));
+			scorePanel.setLayout(new BorderLayout());
+			scorePanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+
+			JLabel nameText = new JLabel(entry.getKey(), JLabel.CENTER);
+			scorePanel.add(nameText, BorderLayout.WEST);
+			mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 20));
+
+			JLabel scoreText = new JLabel(String.valueOf(entry.getValue()), JLabel.CENTER);
+			scorePanel.add(scoreText, BorderLayout.EAST);
+			mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 20));
+
+			JPanel lineContainer = new JPanel();
+			lineContainer.setBackground(new Color(0,0,0,0));
+			lineContainer.add(nbPanel);
+			lineContainer.add(scorePanel);
+
+			scoresList.add(lineContainer);
 		}
-		
-		
-		
+
+
 		JPanel wrapPlayInBL = new JPanel();
 		wrapPlayInBL.setLayout(new BorderLayout());
 		wrapPlayInBL.setBackground(new Color(0,0,0,0));
@@ -142,7 +154,7 @@ public class GameLeaderboardPanel extends AppView {
 		leaderboardANDbuttonsGrid.add(buttonsFlowLayout);
 		mainBorderLayout.add(leaderboardANDbuttonsGrid, BorderLayout.NORTH);
 		wrapSoloDuoInBL.add(videWrapSoloDuoInBL, BorderLayout.NORTH);
-		difficultySize.add(difficulty);
+		difficultySize.add(scoresList);
 		centerDifficultySize.add(difficultySize);
 		mainBorderLayout.add(centerDifficultySize, BorderLayout.CENTER);
 		wrapPlayInBL.add(videNordWrapPlayInBL, BorderLayout.SOUTH);
