@@ -18,7 +18,13 @@ public class GameLeaderboardController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-			if(source == view.getClose())
+			if(source == view.getClose()) {
 				App.getInstance().changeView(new MainPanel());
-	}
+				App.getInstance().saveScore("Hugo", 210);
+				App.getInstance().getScoreSaved();
+			}
+			/*if(source == view.getScoreSolo())
+				
+			if(source == view.getScoreDuo())
+	*/}
 }
