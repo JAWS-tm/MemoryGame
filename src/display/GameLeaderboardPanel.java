@@ -55,7 +55,7 @@ public class GameLeaderboardPanel extends AppView {
 		leaderboardANDbuttonsGrid.setBackground(new Color(0,0,0,0));
 		
 		
-		leaderboardFlowLayout = new JPanel(); 
+		JPanel leaderboardFlowLayout = new JPanel(); 
 		leaderboardFlowLayout.setLayout(new FlowLayout());
 		leaderboardFlowLayout.setBackground(new Color(0,0,0,0));
 		
@@ -111,11 +111,11 @@ public class GameLeaderboardPanel extends AppView {
 
 			JLabel nameText = new JLabel(entry.getKey(), JLabel.CENTER);
 			scorePanel.add(nameText, BorderLayout.WEST);
-			mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 20));
+			nameText.setFont(new Font(nameText.getFont().getFontName(), Font.BOLD, 20));
 
 			JLabel scoreText = new JLabel(String.valueOf(entry.getValue()), JLabel.CENTER);
 			scorePanel.add(scoreText, BorderLayout.EAST);
-			mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 20));
+			scoreText.setFont(new Font(scoreText.getFont().getFontName(), Font.BOLD, 20));
 
 			JPanel lineContainer = new JPanel();
 			lineContainer.setBackground(new Color(0,0,0,0));

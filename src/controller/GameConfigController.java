@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
@@ -99,19 +100,29 @@ public class GameConfigController implements ActionListener{
 			}
 		}
 		
+		if (source == view.getValidate()) {
+			try {
+				App.getInstance().changeView(new GamePanel(difficultySelected));
+				view.getNameFrame().dispatchEvent(new WindowEvent(view.getNameFrame(), WindowEvent.WINDOW_CLOSING));
+				
+			} catch (AppException exception){
+				if (exception.getErrorType() == AppException.Type.VIEW_LOADING_FAILED)
+					App.getInstance().changeView(new MainPanel());
+			}
+		}
+		
 		if(source == view.getPlayBtn()) {
 			if(modeSelected == null || !modeSelected.isSelected())
 				JOptionPane.showMessageDialog(view, "Selectionnez le mode !", "Erreur: MODE", JOptionPane.PLAIN_MESSAGE);
 			else if(difficultySelected == null)
 				JOptionPane.showMessageDialog(view, "Selectionnez le niveau !", "Erreur: NIVEAU", JOptionPane.PLAIN_MESSAGE);
 			else {
-				try {
-					App.getInstance().changeView(new GamePanel(difficultySelected));
-				} catch (AppException exception){
-					if (exception.getErrorType() == AppException.Type.VIEW_LOADING_FAILED)
-						App.getInstance().changeView(new MainPanel());
-				}
-			}
+				if(view.getSoloModeBtn().isSelected())
+					view.openNameFrame(1);
+				else
+					view.openNameFrame(2);
+				
+			} 	
 
 		}
 		

@@ -1,9 +1,13 @@
 package display;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
 
 import additional.AppView;
 import controller.GameConfigController;
@@ -21,12 +26,14 @@ public class GameConfigPanel extends AppView {
 
 	private JToggleButton soloModeBtn, duoModeBtn;
 	private JToggleButton easyDifficultyBtn, classicDifficultyBtn, hardDifficultyBtn, extremeDifficultyBtn, personalizedDifficultyBtn;
-	private JButton playBtn, personalizedDifficulty_validate, personalizedDifficulty_cancel;
+	private JButton playBtn, personalizedDifficulty_validate, personalizedDifficulty_cancel, validate;
 
 	public GameConfigPanel() {
 		super();
 		this.controller = new GameConfigController(this);
 		generatePanel();
+		
+		
 	}
 
 	@Override
@@ -151,6 +158,8 @@ public class GameConfigPanel extends AppView {
 		contentPopUp.add(largeur);
 
 		largeurInput = new JTextField();
+		setPlaceholderText("  Entrez la largeur", largeurInput);
+		
 		contentPopUp.add(largeurInput);
 
 		JLabel hauteur = new JLabel(" Hauteur :");
@@ -187,6 +196,63 @@ public class GameConfigPanel extends AppView {
 		personalizedDifficulty_cancel.addActionListener(controller);
 
 	}
+	
+	private JFrame nameFrame;
+    
+    public void openNameFrame(int nbJ) {
+    	nameFrame = new JFrame();
+		nameFrame.setVisible(true);
+		nameFrame.setSize(600, 650);
+		nameFrame.setLocationRelativeTo(null);
+		//nameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		JPanel container = new JPanel();
+		container.setLayout(new GridLayout(nbJ + 1, 1));
+		nameFrame.setContentPane(container);
+		
+		JLabel nameInput;
+		
+		//nameInput = new JLabel("Entrez votre nom :");
+		//nameInput.setHorizontalAlignment(SwingConstants.CENTER); 
+		//container.add(nameInput);
+		
+		
+		
+		if(nbJ == 2) {
+			JTextField playerName1 = new JTextField();
+			setPlaceholderText("  Nom du premier joueur", playerName1);
+			playerName1.setPreferredSize(new Dimension(180, 30));
+			container.add(playerName1);
+			
+			JTextField playerName2 = new JTextField("saisir du texte");
+			setPlaceholderText("  Nom du deuxieme joueur", playerName2);
+			//JTextField playerName2 = new JTextField();
+	        playerName2.setPreferredSize(new Dimension(180, 30));
+	        
+	        
+			container.add(playerName2);
+		}
+		else {
+			JTextField playerName1 = new JTextField();
+		setPlaceholderText("  Entrez votre nom", playerName1);
+		playerName1.setPreferredSize(new Dimension(180, 30));
+		container.add(playerName1);
+		}
+		
+		
+		JPanel SizeValidate = new JPanel();
+		//SizeValidate.setPreferredSize(new Dimension(20, 10));
+		
+        validate = new JButton("Valider");
+        validate.addActionListener(controller);
+        
+        
+        SizeValidate.add(validate);
+        container.add(SizeValidate);
+        
+    }
+    
+    
 
 	// Getters
 
@@ -249,5 +315,12 @@ public class GameConfigPanel extends AppView {
 	public JFrame getPersonalizedPopUp() {
 		return personnaliserPopUp;
 	}
-
+	
+	public JButton getValidate() {
+		return validate;
+	}
+	
+	public JFrame getNameFrame() {
+		return nameFrame;
+	}
 }
