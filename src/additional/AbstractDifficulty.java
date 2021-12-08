@@ -5,19 +5,23 @@ public abstract class AbstractDifficulty {
     private int rowsNumber;
     private int colsNumber;
     private String iconDir;
-    private int timer = 0; // 0 for no timer
+    private int timerLength = 0; // 0 for no timer
     private int delay_card; // delais avant le retournement de la carte
 
     private int pairsNb;
 
-    public AbstractDifficulty(int rows, int cols, int timer, int delay_card, String iconDir) {
+    public AbstractDifficulty(int rows, int cols, int timerLength, int delay_card, String iconDir) {
         this.rowsNumber = rows;
         this.colsNumber = cols;
-        this.timer = timer;
+        this.timerLength = timerLength;
         this.delay_card = delay_card;
         this.iconDir = iconDir;
 
         pairsNb = (rows * cols) / 2;
+    }
+
+    public int getTimerLength() {
+        return timerLength;
     }
 
     public int getPairsNb() {

@@ -3,7 +3,9 @@ package controller;
 import additional.AbstractDifficulty;
 import additional.AppException;
 import additional.GameConfig;
+import additional.GameTimer;
 import display.GamePanel;
+import display.MainPanel;
 import display.MemoryCard;
 
 import javax.swing.*;
@@ -23,7 +25,7 @@ public class GameController implements ActionListener {
 
     private ArrayList<MemoryCard> cards = new ArrayList<>();
     private MemoryCard selectedPair = null;
-    private Timer pairCooldown;
+    private Timer timer;
     private boolean timerIsStarted = false;
     private int nbPairFinded = 0;
     private GameConfig config;
@@ -46,10 +48,11 @@ public class GameController implements ActionListener {
                 card.addActionListener(this);
                 cards.add(card);
                 pairID++;
+
+                Collections.shuffle(cards);
             }
             Collections.shuffle(cards);
         }
-        Collections.shuffle(cards);
 
         return cards;
     }
@@ -106,16 +109,17 @@ public class GameController implements ActionListener {
 
         nbPairFinded++;
         if (nbPairFinded == config.getDifficulty().getPairsNb()){
+        view.changeNbPairsFindedText(nbPairFinded);
             this.endOfGame();
             
         }
     }
 
     private void endOfGame() {
+        timer.cancel();
+
         view.openEndFrame();
-        if(config.getMode() == 1) {
-        	App.saveNewScore(config.getPlayerName1(), nbPairFinded, config.getMode());
-        }
+        
         
         //JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
     }
@@ -136,7 +140,7 @@ public class GameController implements ActionListener {
                 } else {
                     // Mauvaise paire
                     timerIsStarted = true;
-                    pairCooldown.schedule(new TimerTask() {
+                    timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             timerIsStarted = false;
@@ -149,6 +153,15 @@ public class GameController implements ActionListener {
                     }, config.getDifficulty().getDelayCard());
                 }
             }
+        }
+        if(source == view.getSaveScore()) {
+        	if(config.getMode() == 1) 
+            	App.saveNewScore(config.getPlayerName1(), nbPairFinded, config.getMode());
+        }
+        
+        if(source == view.getQuitter()) {
+        	view.getEndGameWindow().setVisible(false);
+        	App.getInstance().changeView(new MainPanel());
         }
     }
 }

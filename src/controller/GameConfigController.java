@@ -18,7 +18,7 @@ import display.MainPanel;
 public class GameConfigController implements ActionListener{
 	private GameConfigPanel view;
 
-	private  JToggleButton modeSelected;
+	private JToggleButton modeSelected;
 	private AbstractDifficulty difficultySelected;
 
 	public GameConfigController(GameConfigPanel view) {
@@ -140,8 +140,7 @@ public class GameConfigController implements ActionListener{
 				else
 					view.openNameFrame(2);
 				
-			} 	
-
+			}
 		}
 		
 	}

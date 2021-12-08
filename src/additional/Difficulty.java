@@ -65,33 +65,3 @@ public class Difficulty{
     }*/
 
 }
-/*
-abstract class AbstractDifficulty {
-    private int rowsNumber;
-    private int colsNumber;
-
-
-    public boolean isValidGridSize(int rows, int cols) {
-        return (rows * cols) % 2 == 0;
-    }
-
-    public void setGridSize(int rowsNb, int colsNb) {
-        if (isValidGridSize(rowsNb, colsNb)){
-            this.rowsNumber = rowsNumber;
-            this.colsNumber = colsNumber;
-        }
-    }
-    public void setColsNumber(int colsNumber) {
-        if (isValidGridSize(this.rowsNumber, colsNumber))
-            this.colsNumber = colsNumber;
-    }
-
-    public int getRowsNumber() {
-        return rowsNumber;
-    }
-
-    public int getColsNumber() {
-        return colsNumber;
-    }
-}
-*/

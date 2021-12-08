@@ -18,6 +18,7 @@ public class GamePanel extends AppView {
     private JWindow endGameWindow;
     private JPanel cardContainer;
     private GameConfig config;
+    private JLabel timerText, nbPairsFindedText;
 
     public GamePanel(GameConfig config) throws AppException {
         super();
@@ -34,7 +35,7 @@ public class GamePanel extends AppView {
 
         // NORTH
         JPanel textContainer = new JPanel();
-        textContainer.setLayout(new GridLayout(2, 1));
+        textContainer.setLayout(new GridLayout(3, 1));
         ((GridLayout) textContainer.getLayout()).setHgap(50);
 
         JLabel bigText = new JLabel("Partie de memory", JLabel.CENTER);
@@ -43,6 +44,23 @@ public class GamePanel extends AppView {
 
         JLabel description = new JLabel("Retournez toutes les paires pour gagner !", JLabel.CENTER);
         textContainer.add(description);
+
+
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new GridLayout(1, 2));
+        infoPanel.setPreferredSize(new Dimension(400, 30));
+        textContainer.add(wrap(infoPanel));
+
+        //TODO: icon au lieu du texte
+        timerText = new JLabel("Temps restant : " + difficulty.getTimerLength(), JLabel.CENTER);
+        timerText.setFont(new Font(timerText.getFont().getFontName(), Font.BOLD, timerText.getFont().getSize()));
+        infoPanel.add(timerText);
+
+        nbPairsFindedText = new JLabel("Nombre de paires trouvées : 0", JLabel.CENTER);
+        nbPairsFindedText.setFont(new Font(nbPairsFindedText.getFont().getFontName(), Font.BOLD, nbPairsFindedText.getFont().getSize()));
+        infoPanel.add(nbPairsFindedText);
+
 
 
         JPanel northPadding = new JPanel();
@@ -73,40 +91,68 @@ public class GamePanel extends AppView {
         this.add(yCenter, BorderLayout.CENTER);
     }
 
+    
+    private JButton saveScore, quitter;
+    
+    public void changeTimerText(int timer) {
+        timerText.setText("Temps restant : " + timer);
+    }
+
+    public void changeNbPairsFindedText(int nb) {
+        nbPairsFindedText.setText("Nombre de paires trouvées : " + nb);
+    }
+
+    // TODO: replace by new panel
     public void openEndFrame() {
         cardContainer.setVisible(false);
         
         endGameWindow = new JWindow(App.getInstance().getFrame());
         endGameWindow.setVisible(true);
-        endGameWindow.setSize(200, 200);
+        endGameWindow.setSize(250, 250);
         endGameWindow.setLocationRelativeTo(null);
+        Point location = endGameWindow.getLocation();
+        location.y += 100;
+        endGameWindow.setLocation(location);
         //endGameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         endGameWindow.requestFocus();
         endGameWindow.setBackground(Color.BLACK);
 
         JPanel container = new JPanel();
         endGameWindow.setContentPane(container);
-        container.setLayout(new GridLayout(3, 1));
-
-        JPanel texts = new JPanel();
-        texts.setLayout(new GridLayout(2, 1));
-        texts.setBackground(Color.black);
-        container.add(texts);
+        container.setLayout(new GridLayout(2, 1));
+        container.setBackground(Color.black);
+       
 
         JLabel mainText = new JLabel("Félicitation !", JLabel.CENTER);
         mainText.setForeground(Color.WHITE);
         mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 20));
-        texts.add(mainText);
-        JLabel instruction = new JLabel("Entrez votre nom ci-dessous", JLabel.CENTER);
-        instruction.setForeground(Color.WHITE);
-        texts.add(instruction);
+        container.add(mainText);
+       
+        JPanel flowLayoutBtn = new JPanel();
+        flowLayoutBtn.setLayout(new FlowLayout());
+        flowLayoutBtn.setBackground(Color.black);
+        container.add(flowLayoutBtn);
+      
+        
+        saveScore = new JButton("Enregistrer mon score");
+        saveScore.addActionListener(controller);
+        flowLayoutBtn.add(saveScore);
+        
+        quitter = new JButton("Retour au menu principal");
+        quitter.addActionListener(controller);
+        flowLayoutBtn.add(quitter);
+    }
 
 
-        JTextField playerName = new JTextField();
-        playerName.setPreferredSize(new Dimension(180, 30));
-        container.add(wrap(playerName));
+	public JButton getSaveScore() {
+		return saveScore;
+	}
 
-        JButton validate = new JButton("Valider");
-        container.add(validate);
+	public JButton getQuitter() {
+		return quitter;
+	}
+    
+    public JWindow getEndGameWindow() {
+    	return endGameWindow;
     }
 }
