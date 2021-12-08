@@ -198,11 +198,12 @@ public class GameConfigPanel extends AppView {
 	}
 	
 	private JFrame nameFrame;
+	private JTextField playerName1, playerName2;
     
     public void openNameFrame(int nbJ) {
     	nameFrame = new JFrame();
 		nameFrame.setVisible(true);
-		nameFrame.setSize(600, 650);
+		nameFrame.setSize(250, 170);
 		nameFrame.setLocationRelativeTo(null);
 		//nameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
@@ -219,12 +220,12 @@ public class GameConfigPanel extends AppView {
 		
 		
 		if(nbJ == 2) {
-			JTextField playerName1 = new JTextField();
+			playerName1 = new JTextField();
 			setPlaceholderText("  Nom du premier joueur", playerName1);
 			playerName1.setPreferredSize(new Dimension(180, 30));
 			container.add(playerName1);
 			
-			JTextField playerName2 = new JTextField("saisir du texte");
+			playerName2 = new JTextField("saisir du texte");
 			setPlaceholderText("  Nom du deuxieme joueur", playerName2);
 			//JTextField playerName2 = new JTextField();
 	        playerName2.setPreferredSize(new Dimension(180, 30));
@@ -233,7 +234,7 @@ public class GameConfigPanel extends AppView {
 			container.add(playerName2);
 		}
 		else {
-			JTextField playerName1 = new JTextField();
+			playerName1 = new JTextField();
 		setPlaceholderText("  Entrez votre nom", playerName1);
 		playerName1.setPreferredSize(new Dimension(180, 30));
 		container.add(playerName1);
@@ -323,4 +324,13 @@ public class GameConfigPanel extends AppView {
 	public JFrame getNameFrame() {
 		return nameFrame;
 	}
+	
+	public JTextField getName1() {
+		return playerName1;
+	}
+	
+	public JTextField getName2() {
+		return playerName2;
+	}
+	
 }

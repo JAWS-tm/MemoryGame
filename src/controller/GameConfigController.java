@@ -102,8 +102,25 @@ public class GameConfigController implements ActionListener{
 		
 		if (source == view.getValidate()) {
 			try {
-				App.getInstance().changeView(new GamePanel(difficultySelected));
-				view.getNameFrame().dispatchEvent(new WindowEvent(view.getNameFrame(), WindowEvent.WINDOW_CLOSING));
+				if(view.getSoloModeBtn().isSelected())
+					if(view.getName1().getText().length() > 12)
+						JOptionPane.showMessageDialog(view, "Ne depassez pas 12 caracteres !", "Erreur: TAILLE", JOptionPane.PLAIN_MESSAGE);
+					else if(view.getName1().getText().equals(""))
+						JOptionPane.showMessageDialog(view, "Entrez un nom !", "Erreur: NOM", JOptionPane.PLAIN_MESSAGE);
+					else {
+						App.getInstance().changeView(new GamePanel(difficultySelected));
+						view.getNameFrame().dispatchEvent(new WindowEvent(view.getNameFrame(), WindowEvent.WINDOW_CLOSING));
+					}
+				
+				else
+					if(view.getName1().getText().length() > 12 || view.getName2().getText().length() > 12)
+						JOptionPane.showMessageDialog(view, "Ne depassez pas 12 caracteres !", "Erreur: TAILLE", JOptionPane.PLAIN_MESSAGE);
+					else if(view.getName1().getText().equals("") || view.getName2().getText().equals(""))
+						JOptionPane.showMessageDialog(view, "Entrez un nom !", "Erreur: NOM", JOptionPane.PLAIN_MESSAGE);
+					else {
+						App.getInstance().changeView(new GamePanel(difficultySelected));
+						view.getNameFrame().dispatchEvent(new WindowEvent(view.getNameFrame(), WindowEvent.WINDOW_CLOSING));
+					}
 				
 			} catch (AppException exception){
 				if (exception.getErrorType() == AppException.Type.VIEW_LOADING_FAILED)
