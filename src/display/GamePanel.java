@@ -8,22 +8,22 @@ import java.util.ArrayList;
 import additional.AbstractDifficulty;
 import additional.AppException;
 import additional.AppView;
+import additional.GameConfig;
 import controller.App;
 import controller.GameController;
 
 public class GamePanel extends AppView {
     private GameController controller;
     private ArrayList<MemoryCard> cards = new ArrayList<>();
-    private AbstractDifficulty difficulty;
     private JWindow endGameWindow;
     private JPanel cardContainer;
+    private GameConfig config;
 
-    public GamePanel(AbstractDifficulty difficulty) throws AppException {
+    public GamePanel(GameConfig config) throws AppException {
         super();
-
-        if (difficulty == null) throw new NullPointerException("Game difficulty not instanced");
-        this.difficulty = difficulty;
-        this.controller = new GameController(this, difficulty);
+        
+        this.controller = new GameController(this, config );
+        this.config = config;
 
         generatePanel();
     }
@@ -53,8 +53,8 @@ public class GamePanel extends AppView {
         this.add(northPadding, BorderLayout.NORTH);
 
         // CENTER
-        int rowsNb = difficulty.getRowsNumber();
-        int colsNb = difficulty.getColsNumber();
+        int rowsNb = config.getDifficulty().getRowsNumber();
+        int colsNb = config.getDifficulty().getColsNumber();
 
         cardContainer = new JPanel();
         cardContainer.setLayout(new GridLayout(rowsNb, colsNb));

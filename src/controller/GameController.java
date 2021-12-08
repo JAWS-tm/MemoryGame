@@ -2,6 +2,7 @@ package controller;
 
 import additional.AbstractDifficulty;
 import additional.AppException;
+import additional.GameConfig;
 import display.GamePanel;
 import display.MemoryCard;
 
@@ -25,13 +26,12 @@ public class GameController implements ActionListener {
     private Timer pairCooldown;
     private boolean timerIsStarted = false;
     private int nbPairFinded = 0;
+    private GameConfig config;
 
-    private AbstractDifficulty difficulty;
-
-    public GameController(GamePanel view, AbstractDifficulty difficulty) {
+    public GameController(GamePanel view, GameConfig config) {
         this.pairCooldown = new Timer();
         this.view = view;
-        this.difficulty = difficulty;
+        this.config = config;
     }
 
     public ArrayList<MemoryCard> getCardsList() throws AppException {
@@ -72,7 +72,7 @@ public class GameController implements ActionListener {
      */
     public void loadIconsPath() throws AppException {
         try {
-            String localPath = "images" + File.separator + "icons" + File.separator + difficulty.getIconDir();
+            String localPath = "images" + File.separator + "icons" + File.separator + config.getDifficulty().getIconDir();
             Path path = Paths.get(System.getProperty("user.dir"), localPath);
 
             if (!Files.exists(path))
@@ -85,7 +85,7 @@ public class GameController implements ActionListener {
                 throw new NullPointerException("Empty directory");
 
             iconsPathList = new ArrayList<>();
-            int imagesToLoad = difficulty.getPairsNb();
+            int imagesToLoad = config.getDifficulty().getPairsNb();
             for (File file : iconsList) {
                 if (imagesToLoad == 0)
                     break;
@@ -105,13 +105,18 @@ public class GameController implements ActionListener {
         pair2.setPairFinded(true);
 
         nbPairFinded++;
-        if (nbPairFinded == difficulty.getPairsNb()){
+        if (nbPairFinded == config.getDifficulty().getPairsNb()){
             this.endOfGame();
+            
         }
     }
 
     private void endOfGame() {
         view.openEndFrame();
+        if(config.getMode() == 1) {
+        	App.saveNewScore(config.getPlayerName1(), nbPairFinded, config.getMode());
+        }
+        
         //JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -141,7 +146,7 @@ public class GameController implements ActionListener {
 
                             selectedPair = null;
                         }
-                    }, difficulty.getDelayCard());
+                    }, config.getDifficulty().getDelayCard());
                 }
             }
         }

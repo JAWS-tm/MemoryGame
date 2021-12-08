@@ -10,6 +10,7 @@ import javax.swing.JToggleButton;
 import additional.AbstractDifficulty;
 import additional.AppException;
 import additional.Difficulty;
+import additional.GameConfig;
 import display.GameConfigPanel;
 import display.GamePanel;
 import display.MainPanel;
@@ -108,7 +109,7 @@ public class GameConfigController implements ActionListener{
 					else if(view.getName1().getText().equals(""))
 						JOptionPane.showMessageDialog(view, "Entrez un nom !", "Erreur: NOM", JOptionPane.PLAIN_MESSAGE);
 					else {
-						App.getInstance().changeView(new GamePanel(difficultySelected));
+						App.getInstance().changeView(new GamePanel(new GameConfig(1, difficultySelected, view.getName1().getText(), null)));
 						view.getNameFrame().dispatchEvent(new WindowEvent(view.getNameFrame(), WindowEvent.WINDOW_CLOSING));
 					}
 				
@@ -118,7 +119,7 @@ public class GameConfigController implements ActionListener{
 					else if(view.getName1().getText().equals("") || view.getName2().getText().equals(""))
 						JOptionPane.showMessageDialog(view, "Entrez un nom !", "Erreur: NOM", JOptionPane.PLAIN_MESSAGE);
 					else {
-						App.getInstance().changeView(new GamePanel(difficultySelected));
+						App.getInstance().changeView(new GamePanel(new GameConfig(2, difficultySelected, view.getName1().getText(), view.getName2().getText() )));
 						view.getNameFrame().dispatchEvent(new WindowEvent(view.getNameFrame(), WindowEvent.WINDOW_CLOSING));
 					}
 				
