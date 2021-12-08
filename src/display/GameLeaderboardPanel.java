@@ -3,14 +3,12 @@ package display;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.swing.*;
 
 import additional.AppView;
 import controller.App;
 import controller.GameLeaderboardController;
-import controller.MainController;
 
 public class GameLeaderboardPanel extends AppView {
 	private GameLeaderboardController controller;
@@ -21,8 +19,6 @@ public class GameLeaderboardPanel extends AppView {
 	
 	@Override
 	protected void generatePanel() {
-		//this.setLayout(new BorderLayout());
-		//this.setBackground(Color.YELLOW);
 		this.setLayout(new GridLayout(1,3));
 		this.setBackground(Color.YELLOW);
 		
