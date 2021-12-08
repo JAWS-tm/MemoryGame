@@ -58,7 +58,7 @@ public class GameConfigController implements ActionListener{
 
 						view.getPersonalizedPopUp().setVisible(true);
 						return;
-					}
+					} //TODO : nombre d'images suffisant
 
 					difficultySelected = new Difficulty.Personalized(rows, cols, 0, iconsStyle);
 				}

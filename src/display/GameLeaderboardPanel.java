@@ -1,11 +1,6 @@
 package display;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -21,7 +16,8 @@ public class GameLeaderboardPanel extends AppView {
 	private GameLeaderboardController controller;
 
 	private JButton close, scoreSolo, scoreDuo;
-	
+	private CardLayout leaderboardsStack;
+	private JPanel leaderboardViews;
 	
 	@Override
 	protected void generatePanel() {
@@ -55,22 +51,22 @@ public class GameLeaderboardPanel extends AppView {
 		leaderboardANDbuttonsGrid.setBackground(new Color(0,0,0,0));
 		
 		
-		JPanel leaderboardFlowLayout = new JPanel(); 
+		JPanel leaderboardFlowLayout = new JPanel();
 		leaderboardFlowLayout.setLayout(new FlowLayout());
 		leaderboardFlowLayout.setBackground(new Color(0,0,0,0));
-		
+
 		JPanel buttonsFlowLayout = new JPanel();
 		buttonsFlowLayout.setLayout(new FlowLayout());
 		buttonsFlowLayout.setBackground(new Color(0,0,0,0));
-		
-		
+
+
 		JLabel leaderboard = new JLabel("Tableau des Scores", JLabel.CENTER);
-		leaderboard.setFont(new Font(leaderboard.getFont().getFontName(), Font.ROMAN_BASELINE, 40));
+		leaderboard.setFont(new Font(leaderboard.getFont().getFontName(), Font.PLAIN, 40));
 		leaderboard.setForeground(Color.DARK_GRAY);
-		
+
 		scoreDuo = new JButton("duo");
 		scoreSolo = new JButton("solo");
-		
+
 		JPanel videWrapSoloDuoInBL = new JPanel();
 		videWrapSoloDuoInBL.setPreferredSize(new Dimension(100,100));
 		//videWrapSoloDuoInBL.setBackground(new Color(0,0,0,0));////////////////////////
@@ -81,48 +77,63 @@ public class GameLeaderboardPanel extends AppView {
 		centerDifficultySize.setBackground(new Color(0,0,0,0));
 
 
-		JPanel difficultySize = new JPanel(); // deuxieme sous-conteneur
-		difficultySize.setBackground(new Color(0,0,0,0));
+		leaderboardViews = new JPanel(); // deuxieme sous-conteneur
+		leaderboardViews.setBackground(Color.yellow);
+
+		leaderboardsStack = new CardLayout();
+		leaderboardViews.setLayout(leaderboardsStack);
 
 
-		GridLayout scoresListLayout = new GridLayout(5,1);
-		scoresListLayout.setVgap(20);
-		JPanel scoresList = new JPanel(); // troisieme sous-conteneur
-		scoresList.setLayout(scoresListLayout);
-		scoresList.setBackground(new Color(0,0,0,0));
 
-		HashMap<String, Integer> highScores = App.getHighScores(App.SOLO);
 
-		int i = 1;
-		for (Map.Entry<String, Integer> entry : highScores.entrySet()) {
-			JLabel number1 = new JLabel(String.valueOf(i++), JLabel.CENTER);
-			number1.setForeground(Color.ORANGE);
-			number1.setPreferredSize(new Dimension(20,20));
 
-			JPanel nbPanel = new JPanel();
-			nbPanel.setBackground(Color.WHITE);
-			nbPanel.add(number1);
 
-			JPanel scorePanel = new JPanel();
-			scorePanel.setBackground(Color.WHITE);
-			scorePanel.setPreferredSize(new Dimension(200,30));
-			scorePanel.setLayout(new BorderLayout());
-			scorePanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		for (int mode = 1 ; mode <= 2; mode++) {
+			GridLayout scoresListLayout = new GridLayout(5,1);
+			scoresListLayout.setVgap(20);
 
-			JLabel nameText = new JLabel(entry.getKey(), JLabel.CENTER);
-			scorePanel.add(nameText, BorderLayout.WEST);
-			nameText.setFont(new Font(nameText.getFont().getFontName(), Font.BOLD, 20));
+			JPanel scoresList = new JPanel(); // troisieme sous-conteneur
+			scoresList.setLayout(scoresListLayout);
+			scoresList.setBackground(new Color(0,0,0,0));
 
-			JLabel scoreText = new JLabel(String.valueOf(entry.getValue()), JLabel.CENTER);
-			scorePanel.add(scoreText, BorderLayout.EAST);
-			scoreText.setFont(new Font(scoreText.getFont().getFontName(), Font.BOLD, 20));
 
-			JPanel lineContainer = new JPanel();
-			lineContainer.setBackground(new Color(0,0,0,0));
-			lineContainer.add(nbPanel);
-			lineContainer.add(scorePanel);
+			HashMap<String, Integer> highScores = App.getHighScores(mode);
+			System.out.println("nb" + mode);
+			System.out.println("scores" + highScores);
+			int i = 1;
+			for (Map.Entry<String, Integer> entry : highScores.entrySet()) {
+				System.out.println(entry.getKey() + entry.getValue());
 
-			scoresList.add(lineContainer);
+				JLabel rankingNb = new JLabel(String.valueOf(i++), JLabel.CENTER);
+				rankingNb.setForeground(Color.ORANGE);
+				rankingNb.setPreferredSize(new Dimension(20,20));
+
+				JPanel nbPanel = new JPanel();
+				nbPanel.setBackground(Color.WHITE);
+				nbPanel.add(rankingNb);
+
+				JPanel scorePanel = new JPanel();
+				scorePanel.setBackground(Color.WHITE);
+				scorePanel.setPreferredSize(new Dimension(200,30));
+				scorePanel.setLayout(new BorderLayout());
+				scorePanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 3, 10));
+
+				JLabel nameText = new JLabel(entry.getKey(), JLabel.CENTER);
+				scorePanel.add(nameText, BorderLayout.WEST);
+				nameText.setFont(new Font(nameText.getFont().getFontName(), Font.BOLD, 18));
+
+				JLabel scoreText = new JLabel(String.valueOf(entry.getValue()), JLabel.CENTER);
+				scorePanel.add(scoreText, BorderLayout.EAST);
+				scorePanel.setFont(new Font(scorePanel.getFont().getFontName(), Font.BOLD, 18));
+
+				JPanel lineContainer = new JPanel();
+				lineContainer.setBackground(new Color(0,0,0,0));
+				lineContainer.add(nbPanel);
+				lineContainer.add(scorePanel);
+
+				scoresList.add(lineContainer);
+			}
+			leaderboardViews.add(scoresList, (mode == 1 ? "SOLO": "DUO"));
 		}
 
 
@@ -154,8 +165,8 @@ public class GameLeaderboardPanel extends AppView {
 		leaderboardANDbuttonsGrid.add(buttonsFlowLayout);
 		mainBorderLayout.add(leaderboardANDbuttonsGrid, BorderLayout.NORTH);
 		wrapSoloDuoInBL.add(videWrapSoloDuoInBL, BorderLayout.NORTH);
-		difficultySize.add(scoresList);
-		centerDifficultySize.add(difficultySize);
+
+		centerDifficultySize.add(leaderboardViews);
 		mainBorderLayout.add(centerDifficultySize, BorderLayout.CENTER);
 		wrapPlayInBL.add(videNordWrapPlayInBL, BorderLayout.SOUTH);
 		playFlowLayout.add(close);
@@ -186,6 +197,14 @@ public class GameLeaderboardPanel extends AppView {
 	}
 	
 	public JButton getScoreDuo() {
-		return scoreSolo;
+		return scoreDuo;
+	}
+
+	public CardLayout getLeaderboardsStack() {
+		return leaderboardsStack;
+	}
+
+	public JPanel getLeaderboardViews() {
+		return leaderboardViews;
 	}
 }

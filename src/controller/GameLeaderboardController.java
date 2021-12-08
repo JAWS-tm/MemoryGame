@@ -16,10 +16,18 @@ public class GameLeaderboardController implements ActionListener {
     }
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e)
+	{
 		Object source = e.getSource();
-			if(source == view.getClose()) {
-				App.getInstance().changeView(new MainPanel());
+		if(source == view.getClose())
+			App.getInstance().changeView(new MainPanel());
+
+		if (source == view.getScoreSolo())
+			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "SOLO");
+
+		else if (source == view.getScoreDuo())
+			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "DUO");
+
 	}
 
 
