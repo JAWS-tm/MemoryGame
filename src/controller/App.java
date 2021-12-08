@@ -1,9 +1,11 @@
 package controller;
 
+import additional.AbstractDifficulty;
 import additional.AppView;
 import display.MainPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.nio.file.Files;
@@ -69,18 +71,19 @@ public class App {
     }
 
 
-    public static HashMap<String, Integer> getHighScores(int gameMode) {
+    public static HashMap<String, Integer> getHighScores(AbstractDifficulty difficulty) {
         try {
             HashMap<String, Integer> playersScores = new HashMap<>();
-            if (!Files.exists(Paths.get("data")) || !Files.exists(Paths.get("data", "score_" + gameMode)))
+            if (!Files.exists(Paths.get("data")) || !Files.exists(Paths.get("data", "score")))
                 return playersScores;
 
-            BufferedReader br = new BufferedReader(new FileReader(Paths.get("data", "score_" + gameMode).toFile()));
+            BufferedReader br = new BufferedReader(new FileReader(Paths.get("data", "score_").toFile()));
 
             String line;
             int nbScores = 0;
             while( (line = br.readLine()) != null && nbScores < 5){
                 String[] splitStr = line.split("/");
+                System.out.println(nbScores + " //// " + Arrays.toString(splitStr));
 
                 playersScores.put(splitStr[1], Integer.parseInt(splitStr[0]));
 

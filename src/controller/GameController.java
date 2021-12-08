@@ -31,9 +31,11 @@ public class GameController implements ActionListener {
     private GameConfig config;
 
     public GameController(GamePanel view, GameConfig config) {
-        this.pairCooldown = new Timer();
+        this.timer = new Timer();
         this.view = view;
         this.config = config;
+
+        this.timer.scheduleAtFixedRate(new GameTimer(config.getDifficulty(), view), 1000, 1000);
     }
 
     public ArrayList<MemoryCard> getCardsList() throws AppException {

@@ -3,6 +3,7 @@ package display;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 import additional.AbstractDifficulty;
@@ -33,6 +34,14 @@ public class GamePanel extends AppView {
     protected void generatePanel() throws AppException {
         this.setLayout(new BorderLayout());
 
+        JPanel northPadding = new JPanel();
+        northPadding.setLayout(new BoxLayout(northPadding, BoxLayout.Y_AXIS));
+
+        JPanel blankPadding = new JPanel();
+        blankPadding.setPreferredSize(new Dimension(50, 80));
+        northPadding.add(blankPadding);
+        this.add(northPadding, BorderLayout.NORTH);
+
         // NORTH
         JPanel textContainer = new JPanel();
         textContainer.setLayout(new GridLayout(3, 1));
@@ -45,30 +54,38 @@ public class GamePanel extends AppView {
         JLabel description = new JLabel("Retournez toutes les paires pour gagner !", JLabel.CENTER);
         textContainer.add(description);
 
-
-
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new GridLayout(1, 2));
-        infoPanel.setPreferredSize(new Dimension(400, 30));
+        infoPanel.setPreferredSize(new Dimension(250, 50));
         textContainer.add(wrap(infoPanel));
-
-        //TODO: icon au lieu du texte
-        timerText = new JLabel("Temps restant : " + difficulty.getTimerLength(), JLabel.CENTER);
-        timerText.setFont(new Font(timerText.getFont().getFontName(), Font.BOLD, timerText.getFont().getSize()));
-        infoPanel.add(timerText);
-
-        nbPairsFindedText = new JLabel("Nombre de paires trouvées : 0", JLabel.CENTER);
-        nbPairsFindedText.setFont(new Font(nbPairsFindedText.getFont().getFontName(), Font.BOLD, nbPairsFindedText.getFont().getSize()));
-        infoPanel.add(nbPairsFindedText);
-
-
-
-        JPanel northPadding = new JPanel();
-        northPadding.setLayout(new GridLayout(2,1));
-
-        northPadding.add(new JPanel());
+        
         northPadding.add(textContainer);
-        this.add(northPadding, BorderLayout.NORTH);
+        // TEMPS :
+        JPanel timerPanel = new JPanel();
+        timerPanel.setLayout(new FlowLayout());
+
+        ImageIcon timerIcon = new ImageIcon("images"+File.separator+"timer.png");
+        JLabel timerImg = new JLabel(new ImageIcon(timerIcon.getImage().getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH)));
+        timerPanel.add(timerImg);
+
+        timerText = new JLabel("" + config.getDifficulty().getTimerLength(), JLabel.CENTER);
+        timerText.setFont(new Font(timerText.getFont().getFontName(), Font.BOLD, timerText.getFont().getSize()));
+        timerPanel.add(timerText);
+        infoPanel.add(timerPanel);
+
+        // PAIRES :
+        JPanel pairsPanel = new JPanel();
+        pairsPanel.setLayout(new FlowLayout());
+
+        ImageIcon pairsIcon = new ImageIcon("images"+File.separator+"cards_pair.png");
+        JLabel pairsImg = new JLabel(new ImageIcon(pairsIcon.getImage().getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH)));
+        pairsPanel.add(pairsImg);
+
+        nbPairsFindedText = new JLabel("0", JLabel.CENTER);
+        nbPairsFindedText.setFont(new Font(nbPairsFindedText.getFont().getFontName(), Font.BOLD, nbPairsFindedText.getFont().getSize()));
+        pairsPanel.add(nbPairsFindedText);
+        infoPanel.add(pairsPanel);
+
 
         // CENTER
         int rowsNb = config.getDifficulty().getRowsNumber();
@@ -95,11 +112,11 @@ public class GamePanel extends AppView {
     private JButton saveScore, quitter;
     
     public void changeTimerText(int timer) {
-        timerText.setText("Temps restant : " + timer);
+        timerText.setText(String.valueOf(timer));
     }
 
     public void changeNbPairsFindedText(int nb) {
-        nbPairsFindedText.setText("Nombre de paires trouvées : " + nb);
+        nbPairsFindedText.setText(String.valueOf(nb));
     }
 
     // TODO: replace by new panel
