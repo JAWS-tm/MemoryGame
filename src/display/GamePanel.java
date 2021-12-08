@@ -73,40 +73,59 @@ public class GamePanel extends AppView {
         this.add(yCenter, BorderLayout.CENTER);
     }
 
+    
+    private JButton saveScore, quitter;
+    
     public void openEndFrame() {
         cardContainer.setVisible(false);
         
         endGameWindow = new JWindow(App.getInstance().getFrame());
         endGameWindow.setVisible(true);
-        endGameWindow.setSize(200, 200);
+        endGameWindow.setSize(250, 250);
         endGameWindow.setLocationRelativeTo(null);
+        Point location = endGameWindow.getLocation();
+        location.y += 100;
+        endGameWindow.setLocation(location);
         //endGameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         endGameWindow.requestFocus();
         endGameWindow.setBackground(Color.BLACK);
 
         JPanel container = new JPanel();
         endGameWindow.setContentPane(container);
-        container.setLayout(new GridLayout(3, 1));
-
-        JPanel texts = new JPanel();
-        texts.setLayout(new GridLayout(2, 1));
-        texts.setBackground(Color.black);
-        container.add(texts);
+        container.setLayout(new GridLayout(2, 1));
+        container.setBackground(Color.black);
+       
 
         JLabel mainText = new JLabel("Félicitation !", JLabel.CENTER);
         mainText.setForeground(Color.WHITE);
         mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 20));
-        texts.add(mainText);
-        JLabel instruction = new JLabel("Entrez votre nom ci-dessous", JLabel.CENTER);
-        instruction.setForeground(Color.WHITE);
-        texts.add(instruction);
+        container.add(mainText);
+       
+        JPanel flowLayoutBtn = new JPanel();
+        flowLayoutBtn.setLayout(new FlowLayout());
+        flowLayoutBtn.setBackground(Color.black);
+        container.add(flowLayoutBtn);
+      
+        
+        saveScore = new JButton("Enregistrer mon score");
+        saveScore.addActionListener(controller);
+        flowLayoutBtn.add(saveScore);
+        
+        quitter = new JButton("Retour au menu principal");
+        quitter.addActionListener(controller);
+        flowLayoutBtn.add(quitter);
+    }
 
 
-        JTextField playerName = new JTextField();
-        playerName.setPreferredSize(new Dimension(180, 30));
-        container.add(wrap(playerName));
+	public JButton getSaveScore() {
+		return saveScore;
+	}
 
-        JButton validate = new JButton("Valider");
-        container.add(validate);
+	public JButton getQuitter() {
+		return quitter;
+	}
+    
+    public JWindow getEndGameWindow() {
+    	return endGameWindow;
     }
 }

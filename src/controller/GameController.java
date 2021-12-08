@@ -4,6 +4,7 @@ import additional.AbstractDifficulty;
 import additional.AppException;
 import additional.GameConfig;
 import display.GamePanel;
+import display.MainPanel;
 import display.MemoryCard;
 
 import javax.swing.*;
@@ -113,9 +114,7 @@ public class GameController implements ActionListener {
 
     private void endOfGame() {
         view.openEndFrame();
-        if(config.getMode() == 1) {
-        	App.saveNewScore(config.getPlayerName1(), nbPairFinded, config.getMode());
-        }
+        
         
         //JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
     }
@@ -149,6 +148,15 @@ public class GameController implements ActionListener {
                     }, config.getDifficulty().getDelayCard());
                 }
             }
+        }
+        if(source == view.getSaveScore()) {
+        	if(config.getMode() == 1) 
+            	App.saveNewScore(config.getPlayerName1(), nbPairFinded, config.getMode());
+        }
+        
+        if(source == view.getQuitter()) {
+        	view.getEndGameWindow().setVisible(false);
+        	App.getInstance().changeView(new MainPanel());
         }
     }
 }

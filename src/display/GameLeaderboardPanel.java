@@ -13,7 +13,7 @@ import controller.GameLeaderboardController;
 public class GameLeaderboardPanel extends AppView {
 	private GameLeaderboardController controller;
 
-	private JButton close, scoreSolo, scoreDuo;
+	private JButton close, scoreNormalBtn, scoreFacileBtn, scoreDifficileBtn, scoreExtremeBtn;
 	private CardLayout leaderboardsStack;
 	private JPanel leaderboardViews;
 	
@@ -60,8 +60,10 @@ public class GameLeaderboardPanel extends AppView {
 		leaderboard.setFont(new Font(leaderboard.getFont().getFontName(), Font.PLAIN, 40));
 		leaderboard.setForeground(Color.DARK_GRAY);
 
-		scoreDuo = new JButton("duo");
-		scoreSolo = new JButton("solo");
+		scoreFacileBtn = new JButton("Facile");
+		scoreNormalBtn = new JButton("Normal");
+		scoreDifficileBtn = new JButton("Dificile");
+		scoreExtremeBtn = new JButton("Extreme");
 
 		JPanel videWrapSoloDuoInBL = new JPanel();
 		videWrapSoloDuoInBL.setPreferredSize(new Dimension(100,100));
@@ -129,7 +131,7 @@ public class GameLeaderboardPanel extends AppView {
 
 				scoresList.add(lineContainer);
 			}
-			leaderboardViews.add(scoresList, (mode == 1 ? "SOLO": "DUO"));
+			leaderboardViews.add(scoresList, (mode == 1 ? "": "DUO"));
 		}
 
 
@@ -155,8 +157,10 @@ public class GameLeaderboardPanel extends AppView {
 		
 		leaderboardFlowLayout.add(premierVide);
 		leaderboardFlowLayout.add(leaderboard);
-		buttonsFlowLayout.add(scoreSolo);
-		buttonsFlowLayout.add(scoreDuo);
+		buttonsFlowLayout.add(scoreFacileBtn);
+		buttonsFlowLayout.add(scoreNormalBtn);
+		buttonsFlowLayout.add(scoreDifficileBtn);
+		buttonsFlowLayout.add(scoreExtremeBtn);
 		leaderboardANDbuttonsGrid.add(leaderboardFlowLayout);
 		leaderboardANDbuttonsGrid.add(buttonsFlowLayout);
 		mainBorderLayout.add(leaderboardANDbuttonsGrid, BorderLayout.NORTH);
@@ -172,8 +176,11 @@ public class GameLeaderboardPanel extends AppView {
 		this.add(mainBorderLayout);
 		this.add(mainVideDroit);
 		close.addActionListener(controller);
-		scoreSolo.addActionListener(controller);
-		scoreDuo.addActionListener(controller);
+		scoreFacileBtn.addActionListener(controller);
+		scoreNormalBtn.addActionListener(controller);
+		scoreDifficileBtn.addActionListener(controller);
+		scoreExtremeBtn.addActionListener(controller);
+		
 		
 	}
 	
@@ -188,12 +195,20 @@ public class GameLeaderboardPanel extends AppView {
 		return close;
 	}
 	
-	public JButton getScoreSolo() {
-		return scoreSolo;
+	public JButton getScoreNormalBtn() {
+		return scoreNormalBtn;
 	}
 	
-	public JButton getScoreDuo() {
-		return scoreDuo;
+	public JButton getScoreFacileBtn() {
+		return scoreFacileBtn;
+	}
+	
+	public JButton getScoreDificileBtn() {
+		return scoreDifficileBtn;
+	}
+	
+	public JButton getScoreExtremeBtn() {
+		return scoreExtremeBtn;
 	}
 
 	public CardLayout getLeaderboardsStack() {
