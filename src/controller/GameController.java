@@ -1,9 +1,6 @@
 package controller;
 
-import additional.AbstractDifficulty;
-import additional.AppException;
-import additional.GameConfig;
-import additional.GameTimer;
+import additional.*;
 import display.GamePanel;
 import display.MainPanel;
 import display.MemoryCard;
@@ -24,11 +21,10 @@ import java.util.Timer;
 public class GameController implements ActionListener {
     private GamePanel view;
 
-    private ArrayList<String> iconsPathList = new ArrayList<>();
-
     private ArrayList<MemoryCard> cards = new ArrayList<>();
     private MemoryCard selectedPair = null;
     private Timer timer;
+    private GameTimer gameTimer;
     private boolean timerIsStarted = false;
     private int nbPairFinded = 0;
     private GameConfig config;
@@ -40,10 +36,11 @@ public class GameController implements ActionListener {
      */
     public GameController(GamePanel view, GameConfig config) {
         this.timer = new Timer();
+        this.gameTimer = new GameTimer(config.getDifficulty(), this);
         this.view = view;
         this.config = config;
 
-        this.timer.scheduleAtFixedRate(new GameTimer(config.getDifficulty(), view), 1000, 1000);
+        this.timer.scheduleAtFixedRate(gameTimer, 1000, 1000);
     }
     
     /**
@@ -78,18 +75,10 @@ public class GameController implements ActionListener {
      *          Retourne {@code null} si une erreur s'est produite
      */
     private ArrayList<String> getIconsPathList() throws AppException {
-        if (iconsPathList.isEmpty()) {
-            loadIconsPath();
-        }
-        return iconsPathList;
-    }
+        ArrayList<String> iconsPathList;
 
-    /**
-     * Recherche tous les icons du dossier icons et les stocke dans {@code iconsPathList} contenant leurs chemins
-     *
-     */
-    public void loadIconsPath() throws AppException {
         try {
+            // multi-platform path
             String localPath = "images" + File.separator + "icons" + File.separator + config.getDifficulty().getIconDir();
             Path path = Paths.get(System.getProperty("user.dir"), localPath);
 
@@ -97,7 +86,6 @@ public class GameController implements ActionListener {
                 throw new NullPointerException("Invalid path");
 
             File iconsDir = new File(path.toString());
-
             File[] iconsList = iconsDir.listFiles((dir, name) -> name.matches("icon_[0-9]+.png"));
             if (iconsList == null)
                 throw new NullPointerException("Empty directory");
@@ -116,6 +104,7 @@ public class GameController implements ActionListener {
             JOptionPane.showMessageDialog(view, "<html>Une erreur a eu lieu lors du chargement des icons, veuillez réessayer.<br/><b>Message : </b>" + e.getMessage() + "</html>", "Erreur de chargement", JOptionPane.ERROR_MESSAGE);
             throw new AppException(AppException.Type.VIEW_LOADING_FAILED);
         }
+        return iconsPathList;
     }
 
     private void setNewPairFunded(MemoryCard pair1, MemoryCard pair2){
@@ -123,20 +112,21 @@ public class GameController implements ActionListener {
         pair2.setPairFinded(true);
 
         nbPairFinded++;
-        if (nbPairFinded == config.getDifficulty().getPairsNb()){
         view.changeNbPairsFindedText(nbPairFinded);
-            this.endOfGame();
-            
-        }
+        if (nbPairFinded == config.getDifficulty().getPairsNb())
+            this.endOfGame(WIN_END_TYPE);
+
     }
 
-    private void endOfGame() {
+    public final static int LOSE_END_TYPE = 0;
+    public final static int WIN_END_TYPE = 1;
+    public void endOfGame(final int endType) {
+        if (endType != LOSE_END_TYPE && endType != WIN_END_TYPE)
+            return;
+
         timer.cancel();
 
-        view.openEndFrame();
-        
-        
-        //JOptionPane.showMessageDialog(view, "Félicitation tu as gagné la partie!", "Fin de partie", JOptionPane.PLAIN_MESSAGE);
+        view.openEndFrame(endType);
     }
 
     @Override
@@ -169,14 +159,41 @@ public class GameController implements ActionListener {
                 }
             }
         }
+
+        // Sur écran de fin :
         if(source == view.getSaveScore()) {
-        	if(config.getMode() == 1) 
-            	App.saveNewScore(config.getPlayerName1(), nbPairFinded, config.getMode());
+            int difficultyNb = 0;
+            if (config.getDifficulty() instanceof Difficulty.Easy)
+                difficultyNb = 1;
+            else if (config.getDifficulty() instanceof Difficulty.Classic)
+                difficultyNb = 2;
+            else if (config.getDifficulty() instanceof Difficulty.Hard)
+                difficultyNb = 3;
+            else if (config.getDifficulty() instanceof Difficulty.Extreme)
+                difficultyNb = 4;
+
+            int score;
+            if (config.getDifficulty().getTimerLength() != 0)
+                score = config.getDifficulty().getTimerLength() - gameTimer.getGameTimer(); // Temps mit
+            else
+                score = gameTimer.getGameTimer();
+
+            App.saveNewScore(config.getPlayerName1(), score, difficultyNb);
+
+            view.getEndGameWindow().setVisible(false);
+            App.getInstance().changeView(new MainPanel());
         }
         
         if(source == view.getQuitter()) {
         	view.getEndGameWindow().setVisible(false);
         	App.getInstance().changeView(new MainPanel());
         }
+    }
+
+    /**
+     * @return Renvoie la vue (Utilisé pour le timer)
+     */
+    public GamePanel getView() {
+        return view;
     }
 }

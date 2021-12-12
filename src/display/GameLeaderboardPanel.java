@@ -92,7 +92,7 @@ public class GameLeaderboardPanel extends AppView {
 
 
 
-		for (int mode = 1 ; mode <= 2; mode++) {
+		for (int difficulty = 1 ; difficulty <= 4; difficulty++) {
 			GridLayout scoresListLayout = new GridLayout(5,1);
 			scoresListLayout.setVgap(20);
 
@@ -101,8 +101,7 @@ public class GameLeaderboardPanel extends AppView {
 			scoresList.setBackground(new Color(0,0,0,0));
 
 
-			HashMap<String, Integer> highScores = new HashMap<>();//App.getHighScores(mode);
-			System.out.println("nb" + mode);
+			HashMap<String, Integer> highScores = App.getHighScores(difficulty);
 			System.out.println("scores" + highScores);
 			int i = 1;
 			for (Map.Entry<String, Integer> entry : highScores.entrySet()) {
@@ -137,7 +136,7 @@ public class GameLeaderboardPanel extends AppView {
 
 				scoresList.add(lineContainer);
 			}
-			leaderboardViews.add(scoresList, (mode == 1 ? "": "DUO"));
+			leaderboardViews.add(scoresList, "difficulty_"+difficulty);
 		}
 
 

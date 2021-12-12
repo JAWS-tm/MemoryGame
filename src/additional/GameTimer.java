@@ -1,5 +1,6 @@
 package additional;
 
+import controller.GameController;
 import display.GamePanel;
 
 import java.util.TimerTask;
@@ -9,8 +10,9 @@ import java.util.TimerTask;
  */
 public class GameTimer extends TimerTask {
     private int gameTimer;
-    private boolean chronoMode;
-    private GamePanel view;
+    private final boolean chronoMode;
+    private final GameController controller;
+
     /**
      * Constructeur de la class GameTimer
      * @param gameDifficulty	Difficulté choisie
@@ -18,7 +20,7 @@ public class GameTimer extends TimerTask {
      */
     public GameTimer(AbstractDifficulty gameDifficulty, GamePanel view) {
         chronoMode = (gameDifficulty.getTimerLength() == 0);
-        this.view = view;
+        this.controller = controller;
         if (chronoMode)
             gameTimer = 0;
         else
@@ -34,10 +36,12 @@ public class GameTimer extends TimerTask {
             gameTimer++;
         else if (gameTimer > 0){
             gameTimer--;
-            // throw end of game
         }
 
-        view.changeTimerText(gameTimer);
+        controller.getView().changeTimerText(gameTimer);
+
+        if (gameTimer == 0) // Partie perdue
+            controller.endOfGame(GameController.LOSE_END_TYPE);
     }
 
     public int getGameTimer() {

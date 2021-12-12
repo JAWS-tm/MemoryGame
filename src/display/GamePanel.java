@@ -50,7 +50,7 @@ public class GamePanel extends AppView {
         northPadding.setLayout(new BoxLayout(northPadding, BoxLayout.Y_AXIS));
 
         JPanel blankPadding = new JPanel();
-        blankPadding.setPreferredSize(new Dimension(50, 80));
+        blankPadding.setPreferredSize(new Dimension(50, 50));
         northPadding.add(blankPadding);
         this.add(northPadding, BorderLayout.NORTH);
 
@@ -142,7 +142,13 @@ public class GamePanel extends AppView {
     /**
      * Génère l'affichage d'une fenetre de fin lorsque la partie est finie
      */
-    public void openEndFrame() {
+    // TODO: replace by new panel
+    private static final int LOSE_END_TYPE = 0;
+    private static final int WIN_END_TYPE = 1;
+    public void openEndFrame(final int endType) {
+        if (endType != LOSE_END_TYPE && endType != WIN_END_TYPE)
+            return;
+
         cardContainer.setVisible(false);
         
         endGameWindow = new JWindow(App.getInstance().getFrame());
@@ -160,9 +166,13 @@ public class GamePanel extends AppView {
         endGameWindow.setContentPane(container);
         container.setLayout(new GridLayout(2, 1));
         container.setBackground(Color.black);
-       
 
-        JLabel mainText = new JLabel("Félicitation !", JLabel.CENTER);
+        String mainString;
+        if (endType == WIN_END_TYPE)
+            mainString = "Félicitation !";
+        else
+            mainString = "Dommage ...";
+        JLabel mainText = new JLabel(mainString, JLabel.CENTER);
         mainText.setForeground(Color.WHITE);
         mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 20));
         container.add(mainText);
@@ -172,10 +182,11 @@ public class GamePanel extends AppView {
         flowLayoutBtn.setBackground(Color.black);
         container.add(flowLayoutBtn);
       
-        
-        saveScore = new JButton("Enregistrer mon score");
-        saveScore.addActionListener(controller);
-        flowLayoutBtn.add(saveScore);
+        if (config.getMode() == 1) {
+            saveScore = new JButton("Enregistrer mon score");
+            saveScore.addActionListener(controller);
+            flowLayoutBtn.add(saveScore);
+        }
         
         quitter = new JButton("Retour au menu principal");
         quitter.addActionListener(controller);

@@ -32,16 +32,14 @@ public class GameLeaderboardController implements ActionListener {
 			App.getInstance().changeView(new MainPanel());
 
 		if (source == view.getScoreFacileBtn())
-			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "Facile");
-
+			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "difficulty_"+1);
 		else if (source == view.getScoreNormalBtn())
-			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "Normal");
+			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "difficulty_"+2);
 		else if (source == view.getScoreDificileBtn())
-			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "Dificile");
+			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "difficulty_"+3);
 		else if (source == view.getScoreExtremeBtn())
-			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "Extreme");
+			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "difficulty_"+4);
 
 	}
-
 
 }
