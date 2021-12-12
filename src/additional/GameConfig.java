@@ -1,5 +1,8 @@
 package additional;
-
+/**
+ * Class qui stock tous les parametres de jeu qui sont réutilisés dans plusieurs class par la suite
+ * afin d'en simplifier leur utilisation
+ */
 public class GameConfig {
 	
 	
@@ -7,6 +10,13 @@ public class GameConfig {
 	private String playerName1, playerName2;
 	private AbstractDifficulty difficulty;
 	
+	/**
+	 * Constructeur de la class GameConfig
+	 * @param mode	mode sélectionné ( solo ou duo )
+	 * @param difficulty	difficulté choisie
+	 * @param playerName1	nom du premier joueur
+	 * @param playerName2	nom du deuxieme joueur (= null si solo)
+	 */
 	public GameConfig(int mode, AbstractDifficulty difficulty, String playerName1, String playerName2) {
 		
 		this.mode = mode;

@@ -1,9 +1,9 @@
 import com.formdev.flatlaf.FlatLightLaf;
 import controller.App;
-
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ *Class principale qui lance la premiere fenêtre de la class AppView 
+ *
+ */
 public class Main {
     public static void main(String[] args) {
         FlatLightLaf.setup();

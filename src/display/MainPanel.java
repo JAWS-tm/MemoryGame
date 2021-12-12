@@ -5,7 +5,10 @@ import controller.MainController;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Class qui étend d'AppView et qui gère l'affichage de la fenetre principale lors de l'ouverture du jeu
+ *
+ */
 public class MainPanel extends AppView {
     private MainController controller;
 
@@ -13,12 +16,18 @@ public class MainPanel extends AppView {
     private JButton showHighscoresBtn;
     private JButton quitGameBtn;
 
+    /**
+     * Constructeur de la fonction MainPanel
+     */
     public MainPanel() {
         super();
         this.controller = new MainController(this);
         generatePanel();
     }
 
+    /**
+     * Génération du panel d'affichage principale de la fenetre de lancement du jeu
+     */
     protected void generatePanel() {
         this.setLayout(new GridLayout(2, 1));
 

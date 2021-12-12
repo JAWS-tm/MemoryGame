@@ -6,15 +6,24 @@ import java.awt.event.ActionListener;
 import display.GameConfigPanel;
 import display.GameLeaderboardPanel;
 import display.MainPanel;
-
+/**
+ * Class qui gère le fonctionnement de l'afficheur des scores
+ *
+ */
 public class GameLeaderboardController implements ActionListener {
 	
 	GameLeaderboardPanel view;
-	
+	/**
+	 * Constructeur de la class GameLeaderboardController
+	 * @param view	Fentre de l'afficheur des scores
+	 */
 	public GameLeaderboardController(GameLeaderboardPanel view){
         this.view = view;
     }
-
+	
+	/**
+	 * Gère les actionsListener
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{

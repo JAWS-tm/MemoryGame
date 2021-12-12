@@ -15,16 +15,26 @@ import display.GameConfigPanel;
 import display.GamePanel;
 import display.MainPanel;
 
+/**
+ * Class qui gère le fonctionnement de la fenetre de configuration de la partie
+ *
+ */
 public class GameConfigController implements ActionListener{
 	private GameConfigPanel view;
 
 	private JToggleButton modeSelected;
 	private AbstractDifficulty difficultySelected;
-
+	/**
+	 * Constructeur de la class GameConfigController
+	 * @param view	fenetre de configuration
+	 */
 	public GameConfigController(GameConfigPanel view) {
 		this.view = view;
 	}
 	
+	/**
+	 * Gestion des actionsListener
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();

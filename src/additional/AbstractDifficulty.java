@@ -1,5 +1,9 @@
 package additional;
-
+/**
+ * Class abstraite qui permet de mettre en place plusieurs difficultés 
+ * 
+ *
+ */
 public abstract class AbstractDifficulty {
 
     private int rowsNumber;
@@ -9,7 +13,16 @@ public abstract class AbstractDifficulty {
     private int delay_card; // delais avant le retournement de la carte
 
     private int pairsNb;
-
+    
+    /**
+     * Constructeur de la classe Difficulty
+     * @param rows	nombre de lignes
+     * @param cols	nombre de colones
+     * @param timerLength	temps maximum avant la fin de la partie, valeur 0 pour aucun timer
+     * @param delay_card	temps de visibilté des cartes une fois cliquées avant qu'elles se retournent
+     * @param iconDir	répertoire des images voulues
+     */
+    
     public AbstractDifficulty(int rows, int cols, int timerLength, int delay_card, String iconDir) {
         this.rowsNumber = rows;
         this.colsNumber = cols;

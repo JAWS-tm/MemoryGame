@@ -13,6 +13,10 @@ import additional.GameConfig;
 import controller.App;
 import controller.GameController;
 
+/**
+ * Class qui étend d'AppView et qui gère l'affichage de la fenetre durant la partie
+ *
+ */
 public class GamePanel extends AppView {
     private GameController controller;
     private ArrayList<MemoryCard> cards = new ArrayList<>();
@@ -20,7 +24,12 @@ public class GamePanel extends AppView {
     private JPanel cardContainer;
     private GameConfig config;
     private JLabel timerText, nbPairsFindedText;
-
+    
+    /**
+     * Constructeur de la class GamePanel
+     * @param config	Objet de type GameConfig contenant tous les paramètres de la partie
+     * @throws AppException	Exception en cas d'erreur du changement de fenetre
+     */
     public GamePanel(GameConfig config) throws AppException {
         super();
         
@@ -29,7 +38,10 @@ public class GamePanel extends AppView {
 
         generatePanel();
     }
-
+    
+    /**
+	 * Génération du panel principale lors de l'affichage de la fenetre
+	 */
     @Override
     protected void generatePanel() throws AppException {
         this.setLayout(new BorderLayout());
@@ -111,15 +123,25 @@ public class GamePanel extends AppView {
     
     private JButton saveScore, quitter;
     
+    /**
+     * Change le texte sur la fenetre, correspondant au temps restant donné par le timer
+     * @param timer	temps en seconde
+     */
     public void changeTimerText(int timer) {
         timerText.setText(String.valueOf(timer));
     }
-
+    
+    /**
+     * Affiche le nombre de paires effectuées durant la partie
+     * @param nb	Nombre de paires
+     */
     public void changeNbPairsFindedText(int nb) {
         nbPairsFindedText.setText(String.valueOf(nb));
     }
 
-    // TODO: replace by new panel
+    /**
+     * Génère l'affichage d'une fenetre de fin lorsque la partie est finie
+     */
     public void openEndFrame() {
         cardContainer.setVisible(false);
         

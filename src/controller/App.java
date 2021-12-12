@@ -12,11 +12,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
-
+	/**
+	 * 
+	 *
+	 */
 public class App {
     private static App instance;
     private JFrame appFrame;
-
+    /**
+     * Constructeur de la class App
+     * Création de la premiere fenetre affichée lors du lancement du jeu
+     */
     private App() {
         appFrame = new JFrame();
         appFrame.setTitle("Jeu de memory");
@@ -27,19 +33,29 @@ public class App {
         appFrame.setContentPane(new MainPanel());
         appFrame.setVisible(true);
     }
-
+    
+    /**
+     *  
+     * @return Retourne la fenetre
+     */
     public static App getInstance() {
         if (App.instance == null) {
             App.instance = new App();
         }
         return App.instance;
     }
-
+    
+    /**
+     * Permet de changer de fenetre
+     * @param newView	fenetre suivante à afficher
+     */
     public void changeView(AppView newView) {
         appFrame.setContentPane(newView);
         appFrame.validate();
     }
-
+    /**
+     * Fermeture du jeu
+     */
     public void closeApp() {
         appFrame.dispatchEvent(new WindowEvent(appFrame, WindowEvent.WINDOW_CLOSING));
     }
@@ -50,7 +66,12 @@ public class App {
 
     public static final int SOLO = 1;
     public static final int DUO = 2;
-
+	/**
+	 * Fonction d'enregistrement d'un nouveau score
+	 * @param playerName	Nom du joueur
+	 * @param score	Score réalisé par le joueur
+	 * @param gameMode	Mode dans lequel il se trouvait
+	 */
     public static void saveNewScore(String playerName, int score, int gameMode) {
         if (gameMode != SOLO && gameMode != DUO)
             return;
@@ -70,7 +91,11 @@ public class App {
         }
     }
 
-
+    /**
+     * Fonction de lecture du fichier où sont enregistrer les scores des joueurs
+     * @param difficulty	Difficulté pour afficher le classement de celle-ci
+     * @return	La liste des scores des joueurs
+     */
     public static HashMap<String, Integer> getHighScores(AbstractDifficulty difficulty) {
         try {
             HashMap<String, Integer> playersScores = new HashMap<>();

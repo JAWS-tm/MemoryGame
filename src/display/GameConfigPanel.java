@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -20,14 +21,20 @@ import javax.swing.SwingConstants;
 
 import additional.AppView;
 import controller.GameConfigController;
-
+/**
+ * Class qui étend d'AppView et qui gère l'affichage de la fenetre de configuration de la partie
+ *
+ */
 public class GameConfigPanel extends AppView {
 	private GameConfigController controller;
 
 	private JToggleButton soloModeBtn, duoModeBtn;
 	private JToggleButton easyDifficultyBtn, classicDifficultyBtn, hardDifficultyBtn, extremeDifficultyBtn, personalizedDifficultyBtn;
 	private JButton playBtn, personalizedDifficulty_validate, personalizedDifficulty_cancel, validate;
-
+	
+	/**
+	 * Constructeur de la class GameConfigPanel
+	 */
 	public GameConfigPanel() {
 		super();
 		this.controller = new GameConfigController(this);
@@ -35,7 +42,10 @@ public class GameConfigPanel extends AppView {
 		
 		
 	}
-
+	
+	/**
+	 * Génération du panel principal qui s'affiche sur la fenetre
+	 */
 	@Override
 	protected void generatePanel() {
 		//	 	creation du conteneur principal
@@ -62,8 +72,18 @@ public class GameConfigPanel extends AppView {
 		duoModeBtn.setPreferredSize(new Dimension(150, 50));
 
 		JPanel videWrapSoloDuoInBL = new JPanel();
+		//videWrapSoloDuoInBL.setBackground(Color.black);
 		videWrapSoloDuoInBL.setPreferredSize(new Dimension(100, 100));
 		wrapSoloDuoInBL.add(videWrapSoloDuoInBL, BorderLayout.NORTH);
+		
+		
+		JPanel BoxText1 = new JPanel();
+		BoxText1.setLayout(new BoxLayout(BoxText1, BoxLayout.Y_AXIS));
+		BoxText1.add(videWrapSoloDuoInBL);
+		this.add(BoxText1);
+		
+		JLabel text1 = new JLabel("Choisissez un mode !");
+		BoxText1.add(text1);
 
 		////creation du conteneur des boutons difficulté
 
@@ -142,7 +162,10 @@ public class GameConfigPanel extends AppView {
 	private JTextField hauteurInput;
 	private JFrame personnaliserPopUp;
 	private JComboBox < String > choixImages;
-
+	
+	/**
+	 * Génération du panel qui s'affiche lors de l'appui sur le bouton de personnalisation de la fenetre
+	 */
 	public void openPersonalizedPopUp() {
 		personnaliserPopUp = new JFrame();
 		personnaliserPopUp.setVisible(true);
@@ -200,7 +223,12 @@ public class GameConfigPanel extends AppView {
 	private JFrame nameFrame;
 	private JTextField playerName1, playerName2;
     
-    public void openNameFrame(int nbJ) {
+	/**
+	 * Génération du panel qui s'affiche lors de l'appui sur le bouton de lancement
+	 * pour demander le nom des joueurs
+	 * @param mode	Mode de jeu choisi (solo ou duo) pour savoir le nombre de champs à remlpir
+	 */
+    public void openNameFrame(int mode) {
     	nameFrame = new JFrame();
 		nameFrame.setVisible(true);
 		nameFrame.setSize(250, 170);
@@ -208,7 +236,7 @@ public class GameConfigPanel extends AppView {
 		//nameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		JPanel container = new JPanel();
-		container.setLayout(new GridLayout(nbJ + 1, 1));
+		container.setLayout(new GridLayout(mode + 1, 1));
 		nameFrame.setContentPane(container);
 		
 		JLabel nameInput;
@@ -219,7 +247,7 @@ public class GameConfigPanel extends AppView {
 		
 		
 		
-		if(nbJ == 2) {
+		if(mode == 2) {
 			playerName1 = new JTextField();
 			setPlaceholderText("  Nom du premier joueur", playerName1);
 			playerName1.setPreferredSize(new Dimension(180, 30));

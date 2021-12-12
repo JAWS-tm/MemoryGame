@@ -17,7 +17,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.Timer;
-
+/**
+ * Class qui gère le fonctionnement de la fenetre de jeu
+ *
+ */
 public class GameController implements ActionListener {
     private GamePanel view;
 
@@ -29,7 +32,12 @@ public class GameController implements ActionListener {
     private boolean timerIsStarted = false;
     private int nbPairFinded = 0;
     private GameConfig config;
-
+    
+    /**
+     * Constructeur de la class GameController
+     * @param view	Fenetre de jeu
+     * @param config	Objet de type GameConfig qui contient tous les parametres de jeu
+     */
     public GameController(GamePanel view, GameConfig config) {
         this.timer = new Timer();
         this.view = view;
@@ -37,7 +45,12 @@ public class GameController implements ActionListener {
 
         this.timer.scheduleAtFixedRate(new GameTimer(config.getDifficulty(), view), 1000, 1000);
     }
-
+    
+    /**
+     * A REMPLIR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * @return
+     * @throws AppException
+     */
     public ArrayList<MemoryCard> getCardsList() throws AppException {
         if (!cards.isEmpty())
             return cards;
@@ -72,7 +85,7 @@ public class GameController implements ActionListener {
     }
 
     /**
-     * Recherche tous les icons du dossier icons et les stockent dans {@code iconsPathList} contenant leurs chemins
+     * Recherche tous les icons du dossier icons et les stocke dans {@code iconsPathList} contenant leurs chemins
      *
      */
     public void loadIconsPath() throws AppException {

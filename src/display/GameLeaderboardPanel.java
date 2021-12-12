@@ -9,7 +9,10 @@ import javax.swing.*;
 import additional.AppView;
 import controller.App;
 import controller.GameLeaderboardController;
-
+/**
+ * Class qui étend de AppView et qui gère l'affichage de la fenetre du tableau des scores
+ *
+ */
 public class GameLeaderboardPanel extends AppView {
 	private GameLeaderboardController controller;
 
@@ -17,6 +20,9 @@ public class GameLeaderboardPanel extends AppView {
 	private CardLayout leaderboardsStack;
 	private JPanel leaderboardViews;
 	
+	/**
+	 * Génération du panel principale lors de l'affichage de la fenetre
+	 */
 	@Override
 	protected void generatePanel() {
 		this.setLayout(new GridLayout(1,3));
@@ -62,7 +68,7 @@ public class GameLeaderboardPanel extends AppView {
 
 		scoreFacileBtn = new JButton("Facile");
 		scoreNormalBtn = new JButton("Normal");
-		scoreDifficileBtn = new JButton("Dificile");
+		scoreDifficileBtn = new JButton("Difficile");
 		scoreExtremeBtn = new JButton("Extreme");
 
 		JPanel videWrapSoloDuoInBL = new JPanel();
@@ -95,7 +101,7 @@ public class GameLeaderboardPanel extends AppView {
 			scoresList.setBackground(new Color(0,0,0,0));
 
 
-			HashMap<String, Integer> highScores = App.getHighScores(mode);
+			HashMap<String, Integer> highScores = new HashMap<>();//App.getHighScores(mode);
 			System.out.println("nb" + mode);
 			System.out.println("scores" + highScores);
 			int i = 1;
