@@ -6,12 +6,12 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
-import additional.AbstractDifficulty;
 import additional.AppException;
 import additional.AppView;
 import additional.GameConfig;
 import controller.App;
 import controller.GameController;
+import display.elements.MemoryCard;
 
 /**
  * Class qui étend d'AppView et qui gère l'affichage de la fenetre durant la partie

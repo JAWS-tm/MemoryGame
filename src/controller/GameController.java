@@ -3,7 +3,7 @@ package controller;
 import additional.*;
 import display.GamePanel;
 import display.MainPanel;
-import display.MemoryCard;
+import display.elements.MemoryCard;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

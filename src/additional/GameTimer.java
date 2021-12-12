@@ -5,8 +5,8 @@ import display.GamePanel;
 
 import java.util.TimerTask;
 /**
- * Class qui gère le systeme de timer du jeu
- *
+ * Class qui gère le système de timer du jeu
+ * Utilisé pour l'affichage du temps restant / temps écoulé
  */
 public class GameTimer extends TimerTask {
     private int gameTimer;
@@ -15,10 +15,10 @@ public class GameTimer extends TimerTask {
 
     /**
      * Constructeur de la class GameTimer
-     * @param gameDifficulty	Difficulté choisie
-     * @param view	Fenetre ou s'affiche le timer pour pouvoir la modifier
+     * @param gameDifficulty Difficulté choisie
+     * @param controller Fenêtre ou s'affiche le timer pour pouvoir la modifier
      */
-    public GameTimer(AbstractDifficulty gameDifficulty, GamePanel view) {
+    public GameTimer(AbstractDifficulty gameDifficulty, GameController controller) {
         chronoMode = (gameDifficulty.getTimerLength() == 0);
         this.controller = controller;
         if (chronoMode)
@@ -28,7 +28,7 @@ public class GameTimer extends TimerTask {
     }
     
     /**
-     * Fonction appellée à chaque seconde du timer pour modifier l'affichage du temps restant
+     * Fonction appelée à chaque seconde du timer pour modifier l'affichage du temps restant
      */
     @Override
     public void run() {

@@ -1,4 +1,4 @@
-package display;
+package display.elements;
 
 import javax.swing.*;
 import java.awt.*;
