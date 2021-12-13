@@ -26,13 +26,13 @@ public class GameLeaderboardPanel extends AppView {
 	@Override
 	protected void generatePanel() {
 		this.setLayout(new GridLayout(1,3));
-		this.setBackground(Color.YELLOW);
+		this.setBackground(new Color(255, 225, 40));
 		
 		JPanel mainVideGauche = new JPanel();
-		mainVideGauche.setBackground(Color.BLACK);
+		mainVideGauche.setBackground(new Color(245, 245, 245));
 		
 		JPanel mainVideDroit = new JPanel();
-		mainVideDroit.setBackground(Color.BLACK);
+		mainVideDroit.setBackground(new Color(245, 245, 245));
 		
 		JPanel mainBorderLayout = new JPanel();
 		mainBorderLayout.setLayout(new BorderLayout());

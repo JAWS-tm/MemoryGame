@@ -1,8 +1,10 @@
 package controller;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
@@ -22,8 +24,10 @@ import display.MainPanel;
 public class GameConfigController implements ActionListener{
 	private GameConfigPanel view;
 
-	private JToggleButton modeSelected;
+	private int modeSelected;
 	private AbstractDifficulty difficultySelected;
+	private int currentCardIndex = 1; // 1 : mode | 2 : difficulty | 3 : name | 4 : personalised Diff
+
 	/**
 	 * Constructeur de la class GameConfigController
 	 * @param view	fenetre de configuration
@@ -38,119 +42,96 @@ public class GameConfigController implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if (source == view.getPersonalizedDifficultyBtn()) {
-			if(view.getPersonalizedPopUp() != null)
-				view.getPersonalizedPopUp().setVisible(true);
-			else
-				view.openPersonalizedPopUp();
-		}
-		
-		if(source == view.getPersonalizedDifficulty_validate()) {
-			try {
-				int cols = Integer.parseInt(view.getLargeurInput().getText());
-				int rows = Integer.parseInt(view.getHauteurInput().getText());
-				String iconsStyle = (String) view.getChoixImages().getSelectedItem();
 
-				if(cols < 2 || cols > 10 || rows < 2 || rows > 10) {
-					JOptionPane.showMessageDialog(view, "Veuillez entrer une largeur/hauteur entre 2 et 10 !", "Erreur: Taille", JOptionPane.PLAIN_MESSAGE);
-					view.getPersonalizedPopUp().setVisible(true);
-				}
-				else if(view.getChoixImages().getSelectedItem() == "") {
-					JOptionPane.showMessageDialog(view, "Choisissez un style d'image !", "Erreur: STYLE", JOptionPane.PLAIN_MESSAGE);
-					view.getPersonalizedPopUp().setVisible(true);
-				}
-				else {
-					view.getPersonalizedPopUp().setVisible(false);
-					view.getPersonalizedDifficultyBtn().setSelected(true);
-					if (!Difficulty.isValidGridSize(rows, cols)){
-						JOptionPane.showMessageDialog(view,
-								"Les dimensions séléctionnées ne forment pas une grille valide !\n" +
-										"La grille doit contenir un nombre pair de case (ex : 3*4)", "Erreur: Taille", JOptionPane.PLAIN_MESSAGE);
+		if(source == view.getSoloModeBtn() || source == view.getDuoModeBtn()) {
+			view.getSoloModeBtn().setSelected(source == view.getSoloModeBtn());
+			view.getDuoModeBtn().setSelected(source == view.getDuoModeBtn());
 
-						view.getPersonalizedPopUp().setVisible(true);
-						return;
-					} //TODO : nombre d'images suffisant
+			view.getPlayer2Pnl().setVisible(source == view.getDuoModeBtn());
 
-					difficultySelected = new Difficulty.Personalized(rows, cols, 0, iconsStyle);
-				}
-			}catch(NumberFormatException erreur){
-				JOptionPane.showMessageDialog(view, "Remplissez tous les champs !", "Erreur: valeur manquante", JOptionPane.PLAIN_MESSAGE);
-				view.getPersonalizedPopUp().setVisible(true);
-			}
-			return;
+			modeSelected = (source == view.getSoloModeBtn()) ? 1 : 2;
+			((CardLayout) view.getCardsContainer().getLayout()).next(view.getCardsContainer());
+			currentCardIndex = 2;
 		}
 
-		else if(source == view.getPersonalizedDifficulty_cancel())
-			view.getPersonalizedPopUp().setVisible(false);
-
-		
-		else if(source == view.getSoloModeBtn()) {
-			view.getDuoModeBtn().setSelected(false);
-			modeSelected = (JToggleButton) source;
-		} else if(source == view.getDuoModeBtn()) {
-			view.getSoloModeBtn().setSelected(false);
-			modeSelected = (JToggleButton) source;
-		}
-		
-		
-		if(source == view.getEasyDifficultyBtn() || source == view.getClassicDifficultyBtn() || source == view.getHardDifficultyBtn() || source == view.getExtremeDifficultyBtn() || source == view.getPersonalizedDifficultyBtn()) {
+		else if(source == view.getEasyDifficultyBtn() || source == view.getClassicDifficultyBtn() || source == view.getHardDifficultyBtn() || source == view.getExtremeDifficultyBtn() || source == view.getPersonalizedDifficultyBtn()) {
 			view.getEasyDifficultyBtn().setSelected(source == view.getEasyDifficultyBtn());
 			view.getClassicDifficultyBtn().setSelected(source == view.getClassicDifficultyBtn());
 			view.getHardDifficultyBtn().setSelected(source == view.getHardDifficultyBtn());
 			view.getExtremeDifficultyBtn().setSelected(source == view.getExtremeDifficultyBtn());
 			view.getPersonalizedDifficultyBtn().setSelected(source == view.getPersonalizedDifficultyBtn());
 
-			if (source == view.getEasyDifficultyBtn()) {
+			if (source == view.getEasyDifficultyBtn())
 				difficultySelected = new Difficulty.Easy();
-			}else if (source == view.getClassicDifficultyBtn()) {
+			else if (source == view.getClassicDifficultyBtn())
 				difficultySelected = new Difficulty.Classic();
-			}else if (source == view.getHardDifficultyBtn()) {
+			else if (source == view.getHardDifficultyBtn())
 				difficultySelected = new Difficulty.Hard();
-			}else if (source == view.getExtremeDifficultyBtn()) {
+			else if (source == view.getExtremeDifficultyBtn())
 				difficultySelected = new Difficulty.Extreme();
+
+			if (source == view.getPersonalizedDifficultyBtn()) {
+				((CardLayout) view.getCardsContainer().getLayout()).show(view.getCardsContainer(), "personalised_card");
+				currentCardIndex = 4;
+			}else{
+				((CardLayout) view.getCardsContainer().getLayout()).next(view.getCardsContainer());
+				currentCardIndex = 3;
 			}
 		}
-		
-		if (source == view.getValidate()) {
-			try {
-				if(view.getSoloModeBtn().isSelected())
-					if(view.getName1().getText().length() > 12)
-						JOptionPane.showMessageDialog(view, "Ne depassez pas 12 caracteres !", "Erreur: TAILLE", JOptionPane.PLAIN_MESSAGE);
-					else if(view.getName1().getText().equals(""))
-						JOptionPane.showMessageDialog(view, "Entrez un nom !", "Erreur: NOM", JOptionPane.PLAIN_MESSAGE);
-					else {
-						App.getInstance().changeView(new GamePanel(new GameConfig(1, difficultySelected, view.getName1().getText(), null)));
-						view.getNameFrame().dispatchEvent(new WindowEvent(view.getNameFrame(), WindowEvent.WINDOW_CLOSING));
-					}
-				
-				else
-					if(view.getName1().getText().length() > 12 || view.getName2().getText().length() > 12)
-						JOptionPane.showMessageDialog(view, "Ne depassez pas 12 caracteres !", "Erreur: TAILLE", JOptionPane.PLAIN_MESSAGE);
-					else if(view.getName1().getText().equals("") || view.getName2().getText().equals(""))
-						JOptionPane.showMessageDialog(view, "Entrez un nom !", "Erreur: NOM", JOptionPane.PLAIN_MESSAGE);
-					else {
-						App.getInstance().changeView(new GamePanel(new GameConfig(2, difficultySelected, view.getName1().getText(), view.getName2().getText() )));
-						view.getNameFrame().dispatchEvent(new WindowEvent(view.getNameFrame(), WindowEvent.WINDOW_CLOSING));
-					}
-				
-			} catch (AppException exception){
-				if (exception.getErrorType() == AppException.Type.VIEW_LOADING_FAILED)
-					App.getInstance().changeView(new MainPanel());
-			}
-		}
-		
-		if(source == view.getPlayBtn()) {
-			if(modeSelected == null || !modeSelected.isSelected())
-				JOptionPane.showMessageDialog(view, "Selectionnez le mode !", "Erreur: MODE", JOptionPane.PLAIN_MESSAGE);
-			else if(difficultySelected == null)
-				JOptionPane.showMessageDialog(view, "Selectionnez le niveau !", "Erreur: NIVEAU", JOptionPane.PLAIN_MESSAGE);
+
+		else if(source == view.getLaunchGameBtn()) {
+			if(view.getPlayerName1().getText().length() == 0 || (modeSelected == 1 && view.getPlayerName2().getText().length() == 0))
+				JOptionPane.showMessageDialog(view, "Entrez un pseudo", "Erreur: PSEUDO", JOptionPane.ERROR_MESSAGE);
+
+			else if (view.getPlayerName1().getText().length() > 12 || (modeSelected == 2 && view.getPlayerName2().getText().length() > 12))
+				JOptionPane.showMessageDialog(view, "La taille du pseudo ne doit pas dépasser 12 caractères", "Erreur: PSEUDO", JOptionPane.ERROR_MESSAGE);
+
 			else {
-				if(view.getSoloModeBtn().isSelected())
-					view.openNameFrame(1);
-				else
-					view.openNameFrame(2);
-				
+				try {
+					App.getInstance().changeView(new GamePanel(new GameConfig(modeSelected, difficultySelected, view.getPlayerName1().getText(), view.getPlayerName2().getText())));
+				} catch (AppException exception){
+					if (exception.getErrorType() == AppException.Type.VIEW_LOADING_FAILED)
+						App.getInstance().changeView(new MainPanel());
+				}
 			}
+		}
+		else if (source == view.getTimerActivated())
+			view.getTimerInput().setVisible(view.getTimerActivated().isSelected());
+
+		else if (source == view.getValidatePersonalised()) {
+			try {
+				int cols = (int) view.getWidthInput().getValue();
+				int rows = (int) view.getHeightInput().getValue();
+				String iconsStyle = (String) view.getStylePicker().getSelectedItem();
+
+				if(Objects.equals(iconsStyle, "")) {
+					JOptionPane.showMessageDialog(view, "Choisissez un style d'image !", "Erreur: STYLE", JOptionPane.ERROR_MESSAGE);
+				}
+				else if (!Difficulty.isValidGridSize(rows, cols))
+					JOptionPane.showMessageDialog(view,
+							"Les dimensions séléctionnées ne forment pas une grille valide !\n" +
+									"La grille doit contenir un nombre pair de case (ex : 3*4)", "Erreur: Taille"
+							, JOptionPane.ERROR_MESSAGE
+					);
+				//else if (pas assez d'images')					 //TODO : nombre d'images suffisant
+				else {
+					difficultySelected = new Difficulty.Personalized(rows, cols, view.getTimerActivated().isSelected() ? (int) view.getTimerInput().getValue() : 0, iconsStyle);
+					((CardLayout) view.getCardsContainer().getLayout()).show(view.getCardsContainer(), "name_card");
+					currentCardIndex = 3;
+				}
+
+			}catch(NumberFormatException erreur){
+				JOptionPane.showMessageDialog(view, "Remplissez tous les champs !", "Erreur: valeur manquante", JOptionPane.PLAIN_MESSAGE);
+			}
+		}
+		else if (source == view.getReturnBtn()) {
+			if (currentCardIndex == 4)
+				((CardLayout) view.getCardsContainer().getLayout()).show(view.getCardsContainer(), "difficulty_card");
+			else if (currentCardIndex > 1){
+				((CardLayout) view.getCardsContainer().getLayout()).previous(view.getCardsContainer());
+				currentCardIndex--;
+			}else
+				App.getInstance().changeView(new MainPanel());
 		}
 		
 	}

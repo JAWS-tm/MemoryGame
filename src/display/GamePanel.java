@@ -28,7 +28,7 @@ public class GamePanel extends AppView {
     /**
      * Constructeur de la class GamePanel
      * @param config	Objet de type GameConfig contenant tous les paramètres de la partie
-     * @throws AppException	Exception en cas d'erreur du changement de fenetre
+     * @throws AppException en cas d'erreur interne lors du chargement de la fenêtre
      */
     public GamePanel(GameConfig config) throws AppException {
         super();
@@ -40,7 +40,7 @@ public class GamePanel extends AppView {
     }
     
     /**
-	 * Génération du panel principale lors de l'affichage de la fenetre
+	 * Génération du panel principal lors de l'affichage de la fenêtre
 	 */
     @Override
     protected void generatePanel() throws AppException {
@@ -48,11 +48,11 @@ public class GamePanel extends AppView {
 
         JPanel northPadding = new JPanel();
         northPadding.setLayout(new BoxLayout(northPadding, BoxLayout.Y_AXIS));
+        this.add(northPadding, BorderLayout.NORTH);
 
         JPanel blankPadding = new JPanel();
         blankPadding.setPreferredSize(new Dimension(50, 50));
         northPadding.add(blankPadding);
-        this.add(northPadding, BorderLayout.NORTH);
 
         // NORTH
         JPanel textContainer = new JPanel();
@@ -72,6 +72,7 @@ public class GamePanel extends AppView {
         textContainer.add(wrap(infoPanel));
         
         northPadding.add(textContainer);
+
         // TEMPS :
         JPanel timerPanel = new JPanel();
         timerPanel.setLayout(new FlowLayout());
