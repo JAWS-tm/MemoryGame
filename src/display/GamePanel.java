@@ -181,7 +181,12 @@ public class GamePanel extends AppView {
         if (endType == WIN_END_TYPE) {
             mainString = " Félicitation ! ";
             picture = new ImageIcon("images/win.png");
-            infoString = "Vous avez gagné en "+controller.getGameTimer().getTimer()+" secondes !";
+            int score;
+            if (config.getDifficulty().getTimerLength() != 0)
+                score = config.getDifficulty().getTimerLength() - controller.getGameTimer().getTimer(); // Temps mit
+            else
+                score = controller.getGameTimer().getTimer();
+            infoString = "Vous avez gagné en " + score + " secondes !";
         }
         else {
             mainString = "Dommage ...";

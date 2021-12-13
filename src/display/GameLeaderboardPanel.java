@@ -252,7 +252,7 @@ public class GameLeaderboardPanel extends AppView {
 		return scoreFacileBtn;
 	}
 	
-	public JButton getScoreDificileBtn() {
+	public JButton getScoreDifficileBtn() {
 		return scoreDifficileBtn;
 	}
 	

@@ -1,5 +1,4 @@
-package controller;
-
+import controller.App;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;

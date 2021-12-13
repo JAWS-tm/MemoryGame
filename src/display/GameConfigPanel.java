@@ -254,7 +254,7 @@ public class GameConfigPanel extends AppView {
 		heightLbl.setAlignmentX(LEFT_ALIGNMENT);
 		heightConfig.add(heightLbl);
 
-		heightInput = new JSpinner(new SpinnerNumberModel(1, 1, 4, 1));
+		heightInput = new JSpinner(new SpinnerNumberModel(2, 2, 4, 1));
 		heightInput.setAlignmentX(LEFT_ALIGNMENT);
 		heightInput.setPreferredSize(new Dimension(50, 20));
 		heightConfig.add(wrap(heightInput));
