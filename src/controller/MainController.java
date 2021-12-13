@@ -6,15 +6,23 @@ import display.MainPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-
+/**
+ * Class qui gère le fonctionnement le la fenetre principale
+ *
+ */
 public class MainController implements ActionListener {
     MainPanel view;
-
+    /**
+     * Constructeur de la class MainController
+     * @param view	Fenetre principale
+     */
     public MainController(MainPanel view){
         this.view = view;
     }
-
+    
+    /**
+     * Gère les actionsListener
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -25,6 +33,6 @@ public class MainController implements ActionListener {
         else if (source == view.getShowHighscoresBtn())
         	appInstance.changeView(new GameLeaderboardPanel());
         else if (source == view.getQuitGameBtn())
-            appInstance.getAppFrame().dispatchEvent(new WindowEvent(appInstance.getAppFrame(), WindowEvent.WINDOW_CLOSING));
+            App.getInstance().closeApp();
     }
 }
