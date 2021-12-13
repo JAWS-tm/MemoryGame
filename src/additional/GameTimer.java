@@ -41,7 +41,11 @@ public class GameTimer extends TimerTask {
         controller.getView().changeTimerText(gameTimer);
 
         if (gameTimer == 0) // Partie perdue
-            controller.endOfGame(GameController.LOSE_END_TYPE);
+        	{
+        	controller.endOfGame(GameController.LOSE_END_TYPE);
+        	System.err.println("pas okk");
+        	}
+            
     }
 
     public int getGameTimer() {

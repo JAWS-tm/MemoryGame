@@ -1,6 +1,10 @@
 package controller;
 
+import additional.AppException;
 import additional.AppView;
+import additional.Difficulty;
+import additional.GameConfig;
+import display.GamePanel;
 import display.MainPanel;
 
 import javax.swing.*;
@@ -25,7 +29,15 @@ public class App {
         appFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        appFrame.setContentPane(new MainPanel());
+        //appFrame.setContentPane(new MainPanel());
+        try {
+        	GamePanel 	a = new GamePanel(new GameConfig(1, new Difficulty.Easy(), "aa", null));
+			appFrame.setContentPane(a);
+			//a.openEndFrame(1);
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         appFrame.setVisible(true);
     }
     

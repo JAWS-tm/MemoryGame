@@ -124,9 +124,10 @@ public class GameController implements ActionListener {
         if (endType != LOSE_END_TYPE && endType != WIN_END_TYPE)
             return;
 
-        timer.cancel();
 
         view.openEndFrame(endType);
+
+        timer.cancel();
     }
 
     @Override
