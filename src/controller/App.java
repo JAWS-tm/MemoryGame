@@ -1,6 +1,6 @@
 package controller;
 
-import additional.AppView;
+import utils.AppView;
 import display.MainPanel;
 
 import javax.swing.*;

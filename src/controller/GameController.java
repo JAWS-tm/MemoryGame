@@ -1,9 +1,9 @@
 package controller;
 
-import additional.AppException;
-import additional.Difficulty;
-import additional.GameConfig;
-import additional.GameTimer;
+import utils.AppException;
+import utils.Difficulty;
+import utils.GameConfig;
+import utils.GameTimer;
 import display.GamePanel;
 import display.MainPanel;
 import display.elements.MemoryCard;

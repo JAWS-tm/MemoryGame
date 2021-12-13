@@ -1,4 +1,4 @@
-package additional;
+package utils;
 /**
  * Class qui stock tous les parametres de jeu qui sont réutilisés dans plusieurs class par la suite
  * afin d'en simplifier leur utilisation

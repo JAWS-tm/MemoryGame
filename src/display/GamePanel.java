@@ -1,10 +1,10 @@
 package display;
 
 
-import additional.AppException;
-import additional.AppView;
-import additional.Difficulty;
-import additional.GameConfig;
+import utils.AppException;
+import utils.AppView;
+import utils.Difficulty;
+import utils.GameConfig;
 import controller.App;
 import controller.GameController;
 import display.elements.MemoryCard;

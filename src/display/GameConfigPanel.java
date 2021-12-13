@@ -1,6 +1,6 @@
 package display;
 
-import additional.AppView;
+import utils.AppView;
 import controller.GameConfigController;
 
 import javax.swing.*;
@@ -162,6 +162,10 @@ public class GameConfigPanel extends AppView {
 		return wrap(card);
 	}
 
+	/**
+	 * Génère le panel permettant de saisir son nom
+	 * @return le panel généré
+	 */
 	private JPanel nameCard() {
 		JPanel card = new JPanel();
 		card.setLayout(new GridBagLayout());
@@ -215,6 +219,10 @@ public class GameConfigPanel extends AppView {
 		return card;
 	}
 
+	/**
+	 * Génère le panel permettant de configurer la difficulté personnalisée
+	 * @return le panel généré
+	 */
 	private JPanel personalisedDifficultyConfigCard() {
 		JPanel card = new JPanel();
 		card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));

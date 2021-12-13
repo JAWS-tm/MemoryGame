@@ -1,6 +1,6 @@
 package display;
 
-import additional.AppView;
+import utils.AppView;
 import controller.App;
 import controller.GameLeaderboardController;
 

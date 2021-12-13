@@ -1,8 +1,6 @@
-package additional;
+package utils;
 /**
- * Class abstraite qui permet de mettre en place plusieurs difficultés 
- * 
- *
+ * Class abstraite qui permet de mettre en place plusieurs difficultés
  */
 public abstract class AbstractDifficulty {
 
@@ -22,7 +20,6 @@ public abstract class AbstractDifficulty {
      * @param delay_card	temps de visibilté des cartes une fois cliquées avant qu'elles se retournent
      * @param iconDir	répertoire des images voulues
      */
-    
     public AbstractDifficulty(int rows, int cols, int timerLength, int delay_card, String iconDir) {
         this.rowsNumber = rows;
         this.colsNumber = cols;
@@ -33,6 +30,7 @@ public abstract class AbstractDifficulty {
         pairsNb = (rows * cols) / 2;
     }
 
+    // Getters
     public int getTimerLength() {
         return timerLength;
     }

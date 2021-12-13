@@ -1,9 +1,9 @@
 package controller;
 
-import additional.AbstractDifficulty;
-import additional.AppException;
-import additional.Difficulty;
-import additional.GameConfig;
+import utils.AbstractDifficulty;
+import utils.AppException;
+import utils.Difficulty;
+import utils.GameConfig;
 import display.GameConfigPanel;
 import display.GamePanel;
 import display.MainPanel;
