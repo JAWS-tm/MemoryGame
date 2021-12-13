@@ -1,5 +1,6 @@
-import com.formdev.flatlaf.FlatLightLaf;
 import controller.App;
+
+import javax.swing.*;
 
 /**
  *Class principale qui lance la premiere fenêtre de la class AppView 
@@ -8,7 +9,7 @@ import controller.App;
 public class Main {
     public static void main(String[] args) {
         try {
-            FlatLightLaf.setup();
+            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
         }catch (Exception ignored) {}
 
         App app = App.getInstance();

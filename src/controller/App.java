@@ -1,10 +1,6 @@
 package controller;
 
-import additional.AppException;
 import additional.AppView;
-import additional.Difficulty;
-import additional.GameConfig;
-import display.GamePanel;
 import display.MainPanel;
 
 import javax.swing.*;
@@ -12,7 +8,10 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class App {
@@ -29,15 +28,7 @@ public class App {
         appFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //appFrame.setContentPane(new MainPanel());
-        try {
-        	GamePanel 	a = new GamePanel(new GameConfig(1, new Difficulty.Easy(), "aa", null));
-			appFrame.setContentPane(a);
-			//a.openEndFrame(1);
-		} catch (AppException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        appFrame.setContentPane(new MainPanel());
         appFrame.setVisible(true);
     }
     

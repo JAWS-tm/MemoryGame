@@ -1,22 +1,19 @@
 package display;
 
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.DimensionUIResource;
-
-import java.awt.*;
-import java.io.File;
-import java.util.ArrayList;
-
 import additional.AppException;
 import additional.AppView;
 import additional.Difficulty;
 import additional.GameConfig;
-import additional.Difficulty.Personalized;
 import controller.App;
 import controller.GameController;
 import display.elements.MemoryCard;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Class qui étend d'AppView et qui gère l'affichage de la fenetre durant la partie
@@ -149,9 +146,8 @@ public class GamePanel extends AppView {
      * Génère l'affichage d'une fenetre de fin lorsque la partie est finie
      */
 
-    private static final int LOSE_END_TYPE = 1;
-    private static final int WIN_END_TYPE = 0;
-    
+    private static final int LOSE_END_TYPE = 0;
+    private static final int WIN_END_TYPE = 1;
     public void openEndFrame(final int endType) {
         if (endType != LOSE_END_TYPE && endType != WIN_END_TYPE)
             return;
@@ -179,22 +175,26 @@ public class GamePanel extends AppView {
         FLmainText.setLayout(new FlowLayout());
 
         String mainString;
+        String infoString;
         ImageIcon picture;
         if (endType == WIN_END_TYPE) {
             mainString = " Félicitation ! ";
             picture = new ImageIcon("images/win.png");
+            infoString = "Vous avez gagné en "+controller.getGameTimer().getTimer()+" secondes !";
         }
         else {
             mainString = "Dommage ...";
             picture = new ImageIcon("images/loose.png");
+            infoString = "Vous avez mis trop de temps !";
         }
+
         JLabel mainText = new JLabel(mainString, JLabel.CENTER);
         mainText.setForeground(Color.red);
         mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 60));
        
         picture = new ImageIcon(picture.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
         
-        JLabel textInfo = new JLabel("Vous avez gagné en 17 secondes !", JLabel.CENTER);
+        JLabel textInfo = new JLabel(infoString, JLabel.CENTER);
         textInfo.setAlignmentX(CENTER_ALIGNMENT);
         textInfo.setFont(new Font(textInfo.getFont().getFontName(), Font.ITALIC, 20));
        

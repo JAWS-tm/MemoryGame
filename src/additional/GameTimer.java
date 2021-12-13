@@ -1,7 +1,6 @@
 package additional;
 
 import controller.GameController;
-import display.GamePanel;
 
 import java.util.TimerTask;
 /**
@@ -9,7 +8,7 @@ import java.util.TimerTask;
  * Utilisé pour l'affichage du temps restant / temps écoulé
  */
 public class GameTimer extends TimerTask {
-    private int gameTimer;
+    private int timer;
     private final boolean chronoMode;
     private final GameController controller;
 
@@ -22,9 +21,9 @@ public class GameTimer extends TimerTask {
         chronoMode = (gameDifficulty.getTimerLength() == 0);
         this.controller = controller;
         if (chronoMode)
-            gameTimer = 0;
+            timer = 0;
         else
-            gameTimer = gameDifficulty.getTimerLength();
+            timer = gameDifficulty.getTimerLength();
     }
     
     /**
@@ -33,22 +32,19 @@ public class GameTimer extends TimerTask {
     @Override
     public void run() {
         if(chronoMode)
-            gameTimer++;
-        else if (gameTimer > 0){
-            gameTimer--;
+            timer++;
+        else if (timer > 0){
+            timer--;
         }
 
-        controller.getView().changeTimerText(gameTimer);
+        controller.getView().changeTimerText(timer);
 
-        if (gameTimer == 0) // Partie perdue
-        	{
+        if (timer == 0) // Partie perdue
         	controller.endOfGame(GameController.LOSE_END_TYPE);
-        	System.err.println("pas okk");
-        	}
             
     }
 
-    public int getGameTimer() {
-        return gameTimer;
+    public int getTimer() {
+        return timer;
     }
 }

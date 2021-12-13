@@ -1,6 +1,9 @@
 package controller;
 
-import additional.*;
+import additional.AppException;
+import additional.Difficulty;
+import additional.GameConfig;
+import additional.GameTimer;
 import display.GamePanel;
 import display.MainPanel;
 import display.elements.MemoryCard;
@@ -12,8 +15,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
 import java.util.Timer;
+import java.util.*;
 /**
  * Class qui gère le fonctionnement de la fenetre de jeu
  *
@@ -124,8 +127,19 @@ public class GameController implements ActionListener {
         if (endType != LOSE_END_TYPE && endType != WIN_END_TYPE)
             return;
 
-
-        view.openEndFrame(endType);
+        if (endType == LOSE_END_TYPE) {
+            try {
+                SwingUtilities.invokeAndWait(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.openEndFrame(endType);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else
+            view.openEndFrame(endType);
 
         timer.cancel();
     }
@@ -175,9 +189,9 @@ public class GameController implements ActionListener {
 
             int score;
             if (config.getDifficulty().getTimerLength() != 0)
-                score = config.getDifficulty().getTimerLength() - gameTimer.getGameTimer(); // Temps mit
+                score = config.getDifficulty().getTimerLength() - gameTimer.getTimer(); // Temps mit
             else
-                score = gameTimer.getGameTimer();
+                score = gameTimer.getTimer();
 
             App.saveNewScore(config.getPlayerName1(), score, difficultyNb);
 
@@ -189,6 +203,10 @@ public class GameController implements ActionListener {
         	view.getEndGameWindow().setVisible(false);
         	App.getInstance().changeView(new MainPanel());
         }
+    }
+
+    public GameTimer getGameTimer() {
+        return gameTimer;
     }
 
     /**
