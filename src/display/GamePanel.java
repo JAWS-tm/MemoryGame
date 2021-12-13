@@ -146,7 +146,6 @@ public class GamePanel extends AppView {
     /**
      * Génère l'affichage d'une fenetre de fin lorsque la partie est finie
      */
-
     private static final int LOSE_END_TYPE = 0;
     private static final int WIN_END_TYPE = 1;
     public void openEndFrame(final int endType) {
@@ -196,7 +195,7 @@ public class GamePanel extends AppView {
 
         JLabel mainText = new JLabel(mainString, JLabel.CENTER);
         mainText.setForeground(Color.red);
-        mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 60));
+        mainText.setFont(new Font(mainText.getFont().getFontName(), Font.BOLD, 45));
        
         picture = new ImageIcon(picture.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
         
@@ -224,12 +223,14 @@ public class GamePanel extends AppView {
         if (config.getMode() == 1 && !(config.getDifficulty() instanceof Difficulty.Personalized)) {
             saveScore = new JButton("Enregistrer mon score");
             saveScore.addActionListener(controller);
-            flowLayoutBtn.add(saveScore);
+            saveScore.setPreferredSize(new Dimension(200, 40));
+            flowLayoutBtn.add(wrap(saveScore));
         }
         
         quitter = new JButton("Retour au menu principal");
         quitter.addActionListener(controller);
-        flowLayoutBtn.add(quitter);
+        quitter.setPreferredSize(new Dimension(200, 40));
+        flowLayoutBtn.add(wrap(quitter));
     }
 
 

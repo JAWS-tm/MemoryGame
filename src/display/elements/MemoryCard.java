@@ -3,7 +3,7 @@ package display.elements;
 import javax.swing.*;
 import java.awt.*;
 /**
- * Class qui étend de JButton et qui gère l'affichage de chaque carte dans le jeu, sous forme de bouton
+ * Class qui étend de {@link JButton} et qui crée une carte de jeu
  * 
  */
 public class MemoryCard extends JButton {
@@ -40,15 +40,21 @@ public class MemoryCard extends JButton {
         iconVisible = !iconVisible;
     }
 
-    
+
+    /**
+     * Permet de savoir si la paire à laquelle la carte est associée a été trouvée
+     * @return paire trouvée
+     */
     public boolean isPairFinded() {
         return pairFinded;
     }
 
-    
-    public void setPairFinded(boolean pairFinded) {
-        this.pairFinded = pairFinded;
-        this.setEnabled(!pairFinded);
+    /**
+     * Permet de définir la carte comme trouvée
+     */
+    public void setPairFinded() {
+        this.pairFinded = true;
+        this.setEnabled(false);
     }
 
     public int getPairID() {

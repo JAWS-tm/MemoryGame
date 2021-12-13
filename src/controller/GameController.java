@@ -116,8 +116,8 @@ public class GameController implements ActionListener {
      * @param pair2 seconde carte
      */
     private void setNewPairFunded(MemoryCard pair1, MemoryCard pair2){
-        pair1.setPairFinded(true);
-        pair2.setPairFinded(true);
+        pair1.setPairFinded();
+        pair2.setPairFinded();
 
         nbPairFinded++;
         view.changeNbPairsFindedText(nbPairFinded);
@@ -219,12 +219,16 @@ public class GameController implements ActionListener {
         }
     }
 
+    /**
+     *
+     * @return le timer du jeu (chrono)
+     */
     public GameTimer getGameTimer() {
         return gameTimer;
     }
 
     /**
-     * @return Renvoie la vue (Utilisé pour le timer)
+     * @return Renvoie la vue (Utilisé par le timer)
      */
     public GamePanel getView() {
         return view;

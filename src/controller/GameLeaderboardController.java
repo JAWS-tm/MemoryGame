@@ -30,7 +30,7 @@ public class GameLeaderboardController implements ActionListener {
 		if(source == view.getClose())
 			App.getInstance().changeView(new MainPanel());
 
-		if (source == view.getScoreFacileBtn())
+		else if (source == view.getScoreFacileBtn())
 			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "difficulty_"+1);
 		else if (source == view.getScoreNormalBtn())
 			view.getLeaderboardsStack().show(view.getLeaderboardViews(), "difficulty_"+2);

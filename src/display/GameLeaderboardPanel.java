@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * Class qui étend de AppView et qui gère l'affichage de la fenetre du tableau des scores
+ * Classe qui étend de AppView et qui gère l'affichage de la fenetre du tableau des scores
  *
  */
 public class GameLeaderboardPanel extends AppView {
@@ -21,6 +21,15 @@ public class GameLeaderboardPanel extends AppView {
 	private JPanel leaderboardViews;
 	private final Color yellowBackground = new Color(255,220,20);
 	private final Color greyForeground = new Color(245, 245, 245);
+
+	/**
+	 * Constructeur de la classe qui initialise le panel
+	 */
+	public GameLeaderboardPanel() {
+		super();
+		this.controller = new GameLeaderboardController(this);
+		generatePanel();
+	}
 
 	/**
 	 * Génération du panel principale lors de l'affichage de la fenetre
@@ -232,13 +241,6 @@ public class GameLeaderboardPanel extends AppView {
 		
 		
 	}
-	
-	
-	public GameLeaderboardPanel() {
-        super();
-        this.controller = new GameLeaderboardController(this);
-        generatePanel();
-    }
 	
 	public JButton getClose() {
 		return close;

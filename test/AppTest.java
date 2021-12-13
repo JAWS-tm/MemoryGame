@@ -25,7 +25,7 @@ class AppTest {
             assertEquals("1|15|TEST", lastLine);
 
         }catch (Exception ignored) {
-            fail("erreur fonction");
+            fail();
         }
 
     }

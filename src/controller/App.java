@@ -14,6 +14,10 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Classe qui gère la fenêtre de l'application
+ * et implémente des fonctions usuelles
+ */
 public class App {
     private static App instance;
     private JFrame appFrame;
@@ -58,6 +62,9 @@ public class App {
         appFrame.dispatchEvent(new WindowEvent(appFrame, WindowEvent.WINDOW_CLOSING));
     }
 
+    /**
+     * @return la {@link JFrame} de l'app
+     */
     public JFrame getFrame() {
         return appFrame;
     }
@@ -137,6 +144,11 @@ public class App {
         return new HashMap<>();
     }
 
+    /***
+     * Trie dans l'ordre croissant une HashMap
+     * @param unsortedMap {@link Map} à trier
+     * @return la liste triée
+     */
     private static HashMap<String, Integer> sortAscending(Map<String, Integer> unsortedMap)
     {
         LinkedList<Entry<String, Integer>> list = new LinkedList<>(unsortedMap.entrySet());
@@ -152,6 +164,4 @@ public class App {
 
         return sortedMap;
     }
-
-
 }

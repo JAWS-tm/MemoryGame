@@ -1,7 +1,13 @@
 package utils;
 
+/**
+ * Classe qui contient les différentes difficultés
+ */
 public class Difficulty{
 
+    /**
+     * Difficulté facile
+     */
     public static class Easy extends AbstractDifficulty{
         private static final int ROWS = 2;
         private static final int COLS = 3;
@@ -14,6 +20,9 @@ public class Difficulty{
         }
     }
 
+    /**
+     * Difficulté normale
+     */
     public static class Classic extends AbstractDifficulty{
         private static final int ROWS = 4;
         private static final int COLS = 4;
@@ -26,6 +35,9 @@ public class Difficulty{
         }
     }
 
+    /**
+     * Difficulté dure
+     */
     public static class Hard extends AbstractDifficulty{
         private static final int ROWS = 4;
         private static final int COLS = 7;
@@ -38,6 +50,9 @@ public class Difficulty{
         }
     }
 
+    /**
+     * Difficulté extrême
+     */
     public static class Extreme extends AbstractDifficulty{
         private static final int ROWS = 4;
         private static final int COLS = 9;
@@ -50,6 +65,9 @@ public class Difficulty{
         }
     }
 
+    /**
+     * Difficulté personnalisée
+     */
     public static class Personalized extends AbstractDifficulty{
         public Personalized(int rows, int cols, int timer, String iconDir) {
             super(rows, cols, timer, 1500, iconDir);
@@ -57,11 +75,14 @@ public class Difficulty{
     }
 
 
+    /**
+     * Permet de savoir si la taille de grille est valide
+     * @param rows nombre de lignes
+     * @param cols nombre de colonnes
+     * @return grille valide
+     */
     public static boolean isValidGridSize(int rows, int cols) {
         return (rows * cols) % 2 == 0;
     }
-    /*public Difficulty(Difficulty diff){
-
-    }*/
 
 }

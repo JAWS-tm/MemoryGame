@@ -15,8 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
- * Class qui gère le fonctionnement de la fenetre de configuration de la partie
- *
+ * Classe qui gère le fonctionnement de la fenêtre de configuration de la partie
  */
 public class GameConfigController implements ActionListener{
 	private GameConfigPanel view;

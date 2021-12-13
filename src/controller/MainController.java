@@ -7,7 +7,7 @@ import display.MainPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- * Class qui gère le fonctionnement le la fenetre principale
+ * Class qui gère le fonctionnement de l'écran principal
  *
  */
 public class MainController implements ActionListener {
