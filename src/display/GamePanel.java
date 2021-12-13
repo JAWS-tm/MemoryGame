@@ -149,8 +149,8 @@ public class GamePanel extends AppView {
      * Génère l'affichage d'une fenetre de fin lorsque la partie est finie
      */
 
-    private static final int LOSE_END_TYPE = 0;
-    private static final int WIN_END_TYPE = 1;
+    private static final int LOSE_END_TYPE = 1;
+    private static final int WIN_END_TYPE = 0;
     
     public void openEndFrame(final int endType) {
         if (endType != LOSE_END_TYPE && endType != WIN_END_TYPE)
