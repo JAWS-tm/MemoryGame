@@ -382,5 +382,4 @@ public class GameConfigPanel extends AppView {
 	public JTextField getPlayerName2() {
 		return playerName2;
 	}
-	
 }

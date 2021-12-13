@@ -1,14 +1,14 @@
 package display;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.*;
-
 import additional.AppView;
 import controller.App;
 import controller.GameLeaderboardController;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 /**
  * Class qui étend de AppView et qui gère l'affichage de la fenetre du tableau des scores
  *
@@ -19,7 +19,9 @@ public class GameLeaderboardPanel extends AppView {
 	private JButton close, scoreNormalBtn, scoreFacileBtn, scoreDifficileBtn, scoreExtremeBtn;
 	private CardLayout leaderboardsStack;
 	private JPanel leaderboardViews;
-	
+	private final Color yellowBackground = new Color(255,220,20);
+	private final Color greyForeground = new Color(245, 245, 245);
+
 	/**
 	 * Génération du panel principale lors de l'affichage de la fenetre
 	 */
@@ -29,14 +31,13 @@ public class GameLeaderboardPanel extends AppView {
 		this.setBackground(new Color(255, 225, 40));
 		
 		JPanel mainVideGauche = new JPanel();
-		mainVideGauche.setBackground(new Color(245, 245, 245));
-		
+		mainVideGauche.setBackground(greyForeground);
 		JPanel mainVideDroit = new JPanel();
-		mainVideDroit.setBackground(new Color(245, 245, 245));
+		mainVideDroit.setBackground(greyForeground);
 		
 		JPanel mainBorderLayout = new JPanel();
 		mainBorderLayout.setLayout(new BorderLayout());
-		mainBorderLayout.setBackground(new Color(0,0,0,0));
+		mainBorderLayout.setBackground(yellowBackground);
 		
 		JPanel premierVide = new JPanel();
 		premierVide.setPreferredSize(new Dimension(0,110));
@@ -75,59 +76,102 @@ public class GameLeaderboardPanel extends AppView {
 		videWrapSoloDuoInBL.setPreferredSize(new Dimension(100,100));
 		//videWrapSoloDuoInBL.setBackground(new Color(0,0,0,0));////////////////////////
 
-
 		JPanel centerDifficultySize = new JPanel(); // premier sous-conteneur
 		centerDifficultySize.setLayout(new BorderLayout());
 		centerDifficultySize.setBackground(new Color(0,0,0,0));
 
 
 		leaderboardViews = new JPanel(); // deuxieme sous-conteneur
-		leaderboardViews.setBackground(Color.yellow);
-
+		leaderboardViews.setBackground(yellowBackground);
 		leaderboardsStack = new CardLayout();
 		leaderboardViews.setLayout(leaderboardsStack);
-
-
-
-
 
 
 		for (int difficulty = 1 ; difficulty <= 4; difficulty++) {
 			GridLayout scoresListLayout = new GridLayout(5,1);
 			scoresListLayout.setVgap(20);
 
-			JPanel scoresList = new JPanel(); // troisieme sous-conteneur
+			JPanel scoresList = new JPanel(); // troisième sous-conteneur
 			scoresList.setLayout(scoresListLayout);
 			scoresList.setBackground(new Color(0,0,0,0));
 
 
 			HashMap<String, Integer> highScores = App.getHighScores(difficulty);
-			System.out.println("scores" + highScores);
 			int i = 1;
 			for (Map.Entry<String, Integer> entry : highScores.entrySet()) {
 				System.out.println(entry.getKey() + entry.getValue());
 
 				JLabel rankingNb = new JLabel(String.valueOf(i++), JLabel.CENTER);
-				rankingNb.setForeground(Color.ORANGE);
-				rankingNb.setPreferredSize(new Dimension(20,20));
+				rankingNb.setForeground(new Color(255, 160, 28));
+				rankingNb.setFont(new Font(rankingNb.getFont().getFontName(), Font.BOLD, 15));
+				rankingNb.setPreferredSize(new Dimension(20,19));
 
 				JPanel nbPanel = new JPanel();
-				nbPanel.setBackground(Color.WHITE);
+				nbPanel.setBackground(new Color(0,0,0,0));
+				nbPanel.setPreferredSize(new Dimension(30,30));
 				nbPanel.add(rankingNb);
+				nbPanel.setBorder(new Border() {
+					int radius = 15;
+					@Override
+					public Insets getBorderInsets(Component c) {
+						return new Insets(0, 0, 0, 0);
+					}
+
+					@Override
+					public boolean isBorderOpaque() { return true; }
+
+					@Override
+					public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+						Graphics2D graphics = (Graphics2D) g;
+						graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+						Dimension arcs = new Dimension(radius,radius);
+
+						graphics.setColor(yellowBackground);
+						graphics.fillRect(0, 0, width, height);//, arcs.width, arcs.height);//paint background
+						//paint border
+						graphics.setColor(greyForeground);
+						graphics.fillRoundRect(0, 0, width, height, arcs.width, arcs.height);
+					}
+				});
 
 				JPanel scorePanel = new JPanel();
 				scorePanel.setBackground(Color.WHITE);
 				scorePanel.setPreferredSize(new Dimension(200,30));
 				scorePanel.setLayout(new BorderLayout());
-				scorePanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 3, 10));
+				scorePanel.setBorder(new Border() {
+					int radius = 15;
+					@Override
+					public Insets getBorderInsets(Component c) {
+						return new Insets(0, 13, 1, 10);
+					}
+
+					@Override
+					public boolean isBorderOpaque() { return true; }
+
+					@Override
+					public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+						Graphics2D graphics = (Graphics2D) g;
+						graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+						Dimension arcs = new Dimension(radius,radius);
+
+						graphics.setColor(yellowBackground);
+						graphics.fillRect(0, 0, width, height);//, arcs.width, arcs.height);//paint background
+						//paint border
+						graphics.setColor(greyForeground);
+						graphics.fillRoundRect(0, 0, width, height, arcs.width, arcs.height);
+					}
+				});
 
 				JLabel nameText = new JLabel(entry.getKey(), JLabel.CENTER);
 				scorePanel.add(nameText, BorderLayout.WEST);
 				nameText.setFont(new Font(nameText.getFont().getFontName(), Font.BOLD, 18));
 
-				JLabel scoreText = new JLabel(String.valueOf(entry.getValue()), JLabel.CENTER);
+				JLabel scoreText = new JLabel(String.valueOf(entry.getValue() + " s "), JLabel.CENTER);
+				scoreText.setForeground(new Color(255, 160, 28));
+				scoreText.setFont(new Font(scorePanel.getFont().getFontName(), Font.BOLD, 15));
 				scorePanel.add(scoreText, BorderLayout.EAST);
-				scorePanel.setFont(new Font(scorePanel.getFont().getFontName(), Font.BOLD, 18));
 
 				JPanel lineContainer = new JPanel();
 				lineContainer.setBackground(new Color(0,0,0,0));

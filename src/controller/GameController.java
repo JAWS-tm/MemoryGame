@@ -47,9 +47,9 @@ public class GameController implements ActionListener {
     }
     
     /**
-     * A REMPLIR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     * @return
-     * @throws AppException
+     * Permet d'obtenir la liste des {@code MemoryCard} générées
+     * @return une {@code ArrayList} de {@code MemoryCard}
+     * @throws AppException si erreur lors du chargement
      */
     public ArrayList<MemoryCard> getCardsList() throws AppException {
         if (!cards.isEmpty())
@@ -110,6 +110,11 @@ public class GameController implements ActionListener {
         return iconsPathList;
     }
 
+    /**
+     * Permet de définir une nouvelle paire trouvée
+     * @param pair1 premiere carte
+     * @param pair2 seconde carte
+     */
     private void setNewPairFunded(MemoryCard pair1, MemoryCard pair2){
         pair1.setPairFinded(true);
         pair2.setPairFinded(true);
@@ -123,6 +128,11 @@ public class GameController implements ActionListener {
 
     public final static int LOSE_END_TYPE = 0;
     public final static int WIN_END_TYPE = 1;
+
+    /**
+     * Lance la fin de jeu
+     * @param endType type de fin (si le joueur à gagné ou perdu)
+     */
     public void endOfGame(final int endType) {
         if (endType != LOSE_END_TYPE && endType != WIN_END_TYPE)
             return;
@@ -144,6 +154,10 @@ public class GameController implements ActionListener {
         timer.cancel();
     }
 
+    /**
+     * Gestionnaire d'actions
+     * @param e évènement
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();

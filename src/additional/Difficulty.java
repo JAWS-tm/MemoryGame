@@ -5,7 +5,7 @@ public class Difficulty{
     public static class Easy extends AbstractDifficulty{
         private static final int ROWS = 2;
         private static final int COLS = 3;
-        private static final int TIMER = 0;
+        private static final int TIMER = 2;
         private static final int CARD_DELAY = 1500;
         private static final String ICON_DIR = "objets";
 

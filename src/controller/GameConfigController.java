@@ -1,14 +1,5 @@
 package controller;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.util.Objects;
-
-import javax.swing.JOptionPane;
-import javax.swing.JToggleButton;
-
 import additional.AbstractDifficulty;
 import additional.AppException;
 import additional.Difficulty;
@@ -16,6 +7,12 @@ import additional.GameConfig;
 import display.GameConfigPanel;
 import display.GamePanel;
 import display.MainPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Objects;
 
 /**
  * Class qui gère le fonctionnement de la fenetre de configuration de la partie
@@ -125,9 +122,13 @@ public class GameConfigController implements ActionListener{
 			}
 		}
 		else if (source == view.getReturnBtn()) {
-			if (currentCardIndex == 4)
+			if (currentCardIndex == 4) {
+				currentCardIndex = 3;
 				((CardLayout) view.getCardsContainer().getLayout()).show(view.getCardsContainer(), "difficulty_card");
-			else if (currentCardIndex > 1){
+			} else if (currentCardIndex == 3 && difficultySelected instanceof Difficulty.Personalized){
+				((CardLayout) view.getCardsContainer().getLayout()).show(view.getCardsContainer(), "personalised_card");
+				currentCardIndex= 4;
+			} else if (currentCardIndex > 1){
 				((CardLayout) view.getCardsContainer().getLayout()).previous(view.getCardsContainer());
 				currentCardIndex--;
 			}else

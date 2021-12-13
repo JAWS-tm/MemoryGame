@@ -131,7 +131,8 @@ public class GamePanel extends AppView {
      * @param timer	temps en seconde
      */
     public void changeTimerText(int timer) {
-        timerText.setText(String.valueOf(timer));
+        if (timerText != null)
+            timerText.setText(String.valueOf(timer));
     }
     
     /**
